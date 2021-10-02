@@ -1,6 +1,9 @@
 
+// World constants
 const TILE_SIZE = 32;
+const BOARD_SIZE_PX = TILE_SIZE * boardSize;
 
+// Asset constants
 const WORLD_IMAGE_WIDTH = 69;
 const WORLD_IMAGE_HEIGHT = 35;
 const WORLD_IMAGE_BORDER = 1;
@@ -24,6 +27,8 @@ playerImg.src = "Assets/Player.png";
 playerImg.onload = function() {
   console.log("we have loaded the player once and never again");
 }
+
+
 
 function updateDisplay() {
   updateWorld();
