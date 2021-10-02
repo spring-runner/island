@@ -1,3 +1,7 @@
+///////////////////////////////////////////////////////////////////////////////
+//
+//  Smooth random curves
+//
 
 function lump(x) {
   return (x - 1) ** 2 * (x + 1) ** 2;
@@ -43,15 +47,71 @@ Curve.prototype.val = function(t) {
   return (w0 * this.v_prev + w1 * this.v_near + w2 * this.v_next) / (w0 + w1 + w2);
 }
 
-var wind_speed_curve0 = new Curve();
-var wind_speed_curve1 = new Curve();
-var wind_direction_curve = new Curve();
+///////////////////////////////////////////////////////////////////////////////
+//
+//  Wind speed and direction
+//
 
-function windSpeed(t) {
-  return (5 * wind_speed_curve0.val(t * 0.0382) +
-          20 * wind_speed_curve1.val(t * 0.00273) ** 4);
+function Wind() {
+  this.wind_speed_curve0 = new Curve();
+  this.wind_speed_curve1 = new Curve();
+  this.wind_direction_curve = new Curve();
 }
 
-function windDirection(t) {
-  return 100 * wind_direction_curve(t * 0.0561);
+Wind.prototype.speed = function(t) {
+  return (5 * this.wind_speed_curve0.val(t * 0.0382) +
+          20 * this.wind_speed_curve1.val(t * 0.00273) ** 4);
 }
+
+Wind.prototype.direction = function(t) {
+  return 100 * this.wind_direction_curve.val(t * 0.0561);
+}
+
+var wind = new Wind();
+
+///////////////////////////////////////////////////////////////////////////////
+//
+//  Wave simulation
+//
+
+const wave_radius = 100;
+
+function Wave() {
+  this.reset();
+}
+
+Wave.prototype.reset = function() {
+  // Restart the wave at a random point on a wide circle around the world.
+  var angle = 2 * Math.PI * Math.random();
+  this.x = Math.cos(angle) * wave_radius;
+  this.y = Math.sin(angle) * wave_radius;
+}
+
+Wave.prototype.simulate = function(dt, speed, direction) {
+  this.x += speed * Math.sin(direction);
+  this.y += speed * Math.cos(direction);
+
+  // If the wave was blow outside the simulation circle, reset it.
+  var radius = Math.hypot(this.x, this.y);
+  if (radius > wave_radius) {
+    this.reset();
+  }
+}
+
+function Waves(wind, num_waves) {
+  this.wind = wind;
+  this.waves = [];
+  for (var i = 0; i < num_waves; ++i) {
+    this.waves.push(new Wave());
+  }
+}
+
+Waves.prototype.simulate = function(dt) {
+  var speed = this.wind.speed(game_time);
+  var direction = this.wind.direction(game_time);
+  for (var i = 0; i < this.waves.length; ++i) {
+    this.waves[i].simulate(dt, speed, direction);
+  }
+}
+
+var waves = new Waves(wind, 5);
