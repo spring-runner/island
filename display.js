@@ -67,7 +67,7 @@ function updateWorld() {
 
 
 function updatePlayer(x, y, heading) {
-  
+
   var canvas = document.getElementById('gameBoard');
   var ctx = canvas.getContext('2d');
 
