@@ -1,10 +1,29 @@
 var board = [];
 const boardSize = 32;
 
+var game_time = 0;
+
 // Create wind and waves
 const NUM_WAVES = 5;
 var wind = new Wind();
 var waves = new Waves(wind, NUM_WAVES);
+
+function animate() {
+  // Determine how much time has passed (dt) and update the game time.
+  // Gap the simulated time at 0.1 seconds to avoid huge jumps.
+  var now = Date.now() / 1000;
+  var dt = Math.min(0.1, now - game_time);
+  game_time = now;
+
+  // Simulate waves
+  waves.simulate(dt);
+
+  // Update the display
+  updateDisplay();
+
+  // Continue the animation loop
+  window.requestAnimationFrame(animate);
+}
 
 function init() {
   console.log("Init Called");
@@ -19,4 +38,8 @@ function init() {
 
   // Display board
   updateDisplay();
+
+  // Begin the animation loop
+  game_time = Date.now() / 1000;
+  window.requestAnimationFrame(animate);
 }
