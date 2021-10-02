@@ -7,14 +7,26 @@ const WORLD_IMAGE_BORDER = 1;
 const WORLD_IMAGE_PADDING = 1;
 const WORLD_IMAGE_TILE_SIZE = 16;
 
+const PLAYER_HEIGHT = 28;
+const PLAYER_WIDTH = 36;
+
+let playerIsLoaded;
+
 var worldImg = new Image();
 worldImg.src = "Assets/land_and_sea.png";
 worldImg.onload = function() {
   updateDisplay();
 }
 
+var playerImg = new Image();
+playerImg.src = "Assets/Player.png";
+playerImg.onload = function() {
+  console.log("we have loaded the player once and never again");
+}
+
 function updateDisplay() {
   updateWorld();
+  updatePlayer(boardSize * TILE_SIZE / 2,boardSize * TILE_SIZE / 2,0);
 }
 
 function updateWorld() {
@@ -50,6 +62,19 @@ function updateWorld() {
     ctx.arc(px, py, 10, 0, 2 * Math.PI);
     ctx.stroke();
   }
+}
+
+
+
+function updatePlayer(x, y, heading) {
+  console.log("Loadeding Context...");
+  var canvas = document.getElementById('gameBoard');
+  var ctx = canvas.getContext('2d');
+  console.log("Context Loaded");
+  console.log(`Rendring Player at x: ${x}, y: ${y}`);
+  ctx.drawImage(playerImg, 0, 0, PLAYER_WIDTH, PLAYER_HEIGHT,
+  x, y, PLAYER_WIDTH, PLAYER_HEIGHT)
+  console.log("Rendred Player");
 }
 
 function getWorldTileForDepth(depth) {

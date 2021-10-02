@@ -71,6 +71,6 @@ class Spritesheet {
     return this.frames[y][x];
   }
   getFrameAtIndex(i) {
-    this.getFrameAt(i % this.frames[0].length, Math.floor(i / this.frames[0].length));
+    return this.getFrameAt(i % this.frames[0].length, Math.floor(i / this.frames[0].length));
   }
 }
