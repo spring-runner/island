@@ -20,7 +20,7 @@ View the contents of a spritesheet
 var spritesheet = loader.spritesheet({
   rows: rows_in_the_spritesheet,
   cols: columns_in_the_spritesheet,
-  gap: gaps_around_the_frames
+  gap: gaps_around_the_frames,
   border: padding_in_the_spritesheet
 });
 ```
