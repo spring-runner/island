@@ -7,6 +7,8 @@ const WORLD_IMAGE_BORDER = 1;
 const WORLD_IMAGE_PADDING = 1;
 const WORLD_IMAGE_TILE_SIZE = 16;
 
+const IMAGES = {};
+
 var worldImg = new Image();
 worldImg.src = "Assets/land_and_sea.png";
 worldImg.onload = function() {
@@ -68,3 +70,14 @@ function getWorldTileForDepth(depth) {
     imageOffset * (WORLD_IMAGE_TILE_SIZE + WORLD_IMAGE_PADDING);
   return [sx, sy, WORLD_IMAGE_TILE_SIZE, WORLD_IMAGE_TILE_SIZE];
 }
+
+function loadImages() {
+  if (location.href.slice(0, 4) == "file") {
+    console.warn("Cannot load images using the file:/// protocol");
+    return
+  }
+  var loader = new ImageLoader();
+  IMAGES.GROUND = loader.load("Assets/land_and_sea.png").spritesheet({rows:2, cols:3, gap:1, border:1});
+}
+
+loadImages();
