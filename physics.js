@@ -99,11 +99,7 @@ Wind.prototype.direction = function(t) {
 //  Wave simulation
 //
 
-<<<<<<< HEAD
 const wave_radius = 750;
-=======
-const wave_radius = 250;
->>>>>>> f9921ccc87ad89ddfe01af6cb02e8510aff8b3f0
 
 function Wave() {
   this.reset();
