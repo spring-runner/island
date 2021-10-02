@@ -31,11 +31,14 @@ playerImg.onload = function() {
 
 
 function updateDisplay() {
+
   updateWorld();
-  updatePlayer(boardSize * TILE_SIZE / 2,boardSize * TILE_SIZE / 2,0);
+  updatePlayer();
+
 }
 
 function updateWorld() {
+
   var canvas = document.getElementById('gameBoard');
   var ctx = canvas.getContext('2d');
   for (var row = 0; row < board.length; row++) {
@@ -72,15 +75,12 @@ function updateWorld() {
 
 
 
-function updatePlayer(x, y, heading) {
+function updatePlayer() {
 
   var canvas = document.getElementById('gameBoard');
   var ctx = canvas.getContext('2d');
-
-
   ctx.drawImage(playerImg, 0, 0, PLAYER_WIDTH, PLAYER_HEIGHT,
-  x, y, PLAYER_WIDTH, PLAYER_HEIGHT)
-
+  playerX, playerY, PLAYER_WIDTH, PLAYER_HEIGHT)
 }
 
 function getWorldTileForDepth(depth) {

@@ -21,12 +21,12 @@ function animate() {
   // Update the display
   updateDisplay();
 
+  movePlayer()
   // Continue the animation loop
   window.requestAnimationFrame(animate);
 }
 
 function init() {
-  console.log("Init Called");
 
   // Create the game board
   for (var row = 0; row < boardSize; row++) {
