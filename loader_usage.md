@@ -1,34 +1,34 @@
 # Using `ImageLoader`
 Create an `ImageLoader`
-```cs
+```js
 var loader = new ImageLoader();
 ```
 Load an image
-```cs
+```js
 loader.load(path);
 ```
 View an entire image
-```cs
+```js
 var image = loader.image();
 ```
-View part of an image image
-```cs
+View part of an image
+```js
 var section = loader.section(x, y, width, height);
 ```
 View the contents of a spritesheet
-```cs
+```js
 var spritesheet = loader.spritesheet({
   rows: rows_in_the_spritesheet,
   cols: columns_in_the_spritesheet,
-  gap: gaps_around_the_frames
+  gap: gaps_around_the_frames,
   border: padding_in_the_spritesheet
 });
 ```
 Get a frame of a spritesheet
-```cs
+```js
 spritesheet[frame_number]
 ```
 Compact version
-```cs
+```js
 loader.load(path).image();
 ```
