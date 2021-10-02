@@ -21,7 +21,6 @@ function updateDisplay() {
     for (var col = 0; col < board[row].length; col++) {
       var tileDepth = board[row][col].elevation;
       tile = getWorldTileForDepth(tileDepth);
-      console.log(`row: ${row}, col: ${col}, tile: ${tile}`);
       ctx.drawImage(worldImg, tile[0],tile[1], tile[2], tile[3],
       row*TILE_SIZE, col*TILE_SIZE, TILE_SIZE, TILE_SIZE);
     }
@@ -35,7 +34,7 @@ function getWorldTileForDepth(depth) {
   // -2 -3 -4 -5
   // where 2 to 0 are land, -1 to -4 are partially sunken Island
   // and -5 is sea.
-  console.log(`depth: ${depth}`);
+
   // Assume we're in row 1.
   var sy = WORLD_IMAGE_BORDER;
 
@@ -53,7 +52,5 @@ function getWorldTileForDepth(depth) {
   var imageOffset = 2 - depth;
   var sx = WORLD_IMAGE_BORDER +
     imageOffset * (WORLD_IMAGE_TILE_SIZE + WORLD_IMAGE_PADDING);
-  console.log(`imageOffset: ${imageOffset}`);
-  console.log(`sx: ${sx}, sy: ${sy}`);
   return [sx, sy, WORLD_IMAGE_TILE_SIZE, WORLD_IMAGE_TILE_SIZE];
 }
