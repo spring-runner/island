@@ -67,8 +67,6 @@ Wind.prototype.direction = function(t) {
   return 100 * this.wind_direction_curve.val(t * 0.0561);
 }
 
-var wind = new Wind();
-
 ///////////////////////////////////////////////////////////////////////////////
 //
 //  Wave simulation
@@ -113,5 +111,3 @@ Waves.prototype.simulate = function(dt) {
     this.waves[i].simulate(dt, speed, direction);
   }
 }
-
-var waves = new Waves(wind, 5);

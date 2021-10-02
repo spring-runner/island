@@ -1,6 +1,11 @@
 var board = [];
 const boardSize = 32;
 
+// Create wind and waves
+const NUM_WAVES = 5;
+var wind = new Wind();
+var waves = new Waves(wind, NUM_WAVES);
+
 function init() {
   console.log("Init Called");
 
