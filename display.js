@@ -1,5 +1,4 @@
 
-const NUM_TILES = 32;
 const TILE_SIZE = 32;
 
 const WORLD_IMAGE_WIDTH = 69;
@@ -8,13 +7,30 @@ const WORLD_IMAGE_BORDER = 1;
 const WORLD_IMAGE_PADDING = 1;
 const WORLD_IMAGE_TILE_SIZE = 16;
 
+const IMAGES = {};
+const PLAYER_HEIGHT = 28;
+const PLAYER_WIDTH = 36;
+
+let playerIsLoaded;
+
 var worldImg = new Image();
 worldImg.src = "Assets/land_and_sea.png";
 worldImg.onload = function() {
   updateDisplay();
 }
 
+var playerImg = new Image();
+playerImg.src = "Assets/Player.png";
+playerImg.onload = function() {
+  console.log("we have loaded the player once and never again");
+}
+
 function updateDisplay() {
+  updateWorld();
+  updatePlayer(boardSize * TILE_SIZE / 2,boardSize * TILE_SIZE / 2,0);
+}
+
+function updateWorld() {
   var canvas = document.getElementById('gameBoard');
   var ctx = canvas.getContext('2d');
   for (var row = 0; row < board.length; row++) {
@@ -25,6 +41,41 @@ function updateDisplay() {
       row*TILE_SIZE, col*TILE_SIZE, TILE_SIZE, TILE_SIZE);
     }
   }
+
+  // Display wind indicator
+  ctx.strokeStyle = "red";
+  ctx.beginPath();
+  ctx.moveTo(50, 50);
+  var speed = wind.speed(game_time);
+  var direction = wind.direction(game_time);
+  ctx.lineTo(50 + 10 * speed * Math.cos(direction),
+             50 - 10 * speed * Math.sin(direction));
+  ctx.stroke();
+
+  // Display waves
+  ctx.strokeStyle = "black";
+  var middle = board.length * TILE_SIZE / 2;
+  for (var i = 0; i < waves.waves.length; ++i) {
+    var wave = waves.waves[i];
+    var px = middle + wave.x;
+    var py = middle - wave.y;
+    ctx.beginPath();
+    ctx.arc(px, py, 10, 0, 2 * Math.PI);
+    ctx.stroke();
+  }
+}
+
+
+
+function updatePlayer(x, y, heading) {
+
+  var canvas = document.getElementById('gameBoard');
+  var ctx = canvas.getContext('2d');
+
+
+  ctx.drawImage(playerImg, 0, 0, PLAYER_WIDTH, PLAYER_HEIGHT,
+  x, y, PLAYER_WIDTH, PLAYER_HEIGHT)
+
 }
 
 function getWorldTileForDepth(depth) {
@@ -54,3 +105,14 @@ function getWorldTileForDepth(depth) {
     imageOffset * (WORLD_IMAGE_TILE_SIZE + WORLD_IMAGE_PADDING);
   return [sx, sy, WORLD_IMAGE_TILE_SIZE, WORLD_IMAGE_TILE_SIZE];
 }
+
+function loadImages() {
+  if (location.href.slice(0, 4) == "file") {
+    console.warn("Cannot load images using the file:/// protocol");
+    return
+  }
+  var loader = new ImageLoader();
+  IMAGES.GROUND = loader.load("Assets/land_and_sea.png").spritesheet({rows:2, cols:3, gap:1, border:1});
+}
+
+loadImages();
