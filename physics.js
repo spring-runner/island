@@ -59,12 +59,12 @@ function Wind() {
 }
 
 Wind.prototype.speed = function(t) {
-  return (5 * this.wind_speed_curve0.val(t * 0.0382) +
-          20 * this.wind_speed_curve1.val(t * 0.00273) ** 4);
+  return (1 * this.wind_speed_curve0.val(t * 0.0382) +
+          4 * this.wind_speed_curve1.val(t * 0.00273) ** 4);
 }
 
 Wind.prototype.direction = function(t) {
-  return 100 * this.wind_direction_curve.val(t * 0.0561);
+  return 10 * this.wind_direction_curve.val(t * 0.0561);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
