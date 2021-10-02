@@ -11,7 +11,7 @@ View an entire image
 ```cs
 var image = loader.image();
 ```
-View part of an image image
+View part of an image
 ```cs
 var section = loader.section(x, y, width, height);
 ```
