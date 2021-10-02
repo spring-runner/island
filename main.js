@@ -13,5 +13,5 @@ function init() {
   }
 
   // Display board
-  updateDislpay();
+  updateDisplay();
 }
