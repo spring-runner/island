@@ -1,15 +1,17 @@
 class ImageLoader {
   constructor() {
-    this.canvas = new OffscreenCanvas(0, 0);
-    this.canvas2 = new OffscreenCanvas(0, 0);
+    this.canvas = null;
+    this.canvas2 = null;
     this.img = null;
   }
   load(file) {
-    var ctx = this.canvas.getContext("2d");
-    ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     var img = new Image();
     img.src = file;
     this.img = img;
+    this.canvas = new OffscreenCanvas(img.width, img.height);
+    this.canvas2 = new OffscreenCanvas(img.width, img.height);
+    var ctx = this.canvas.getContext("2d");
+    ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     return this;
   }
   image() {
