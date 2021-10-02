@@ -1,5 +1,4 @@
 
-const NUM_TILES = 32;
 const TILE_SIZE = 32;
 
 const WORLD_IMAGE_WIDTH = 69;
@@ -15,6 +14,10 @@ worldImg.onload = function() {
 }
 
 function updateDisplay() {
+  updateWorld();
+}
+
+function updateWorld() {
   var canvas = document.getElementById('gameBoard');
   var ctx = canvas.getContext('2d');
   for (var row = 0; row < board.length; row++) {
