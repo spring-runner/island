@@ -41,7 +41,18 @@ function updateWorld() {
     }
   }
 
+  // Display wind indicator
+  ctx.strokeStyle = "red";
+  ctx.beginPath();
+  ctx.moveTo(50, 50);
+  var speed = wind.speed(game_time);
+  var direction = wind.direction(game_time);
+  ctx.lineTo(50 + 10 * speed * Math.cos(direction),
+             50 - 10 * speed * Math.sin(direction));
+  ctx.stroke();
+
   // Display waves
+  ctx.strokeStyle = "black";
   var middle = board.length * TILE_SIZE / 2;
   for (var i = 0; i < waves.waves.length; ++i) {
     var wave = waves.waves[i];
