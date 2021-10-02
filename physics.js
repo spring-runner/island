@@ -86,8 +86,8 @@ Wave.prototype.reset = function() {
 }
 
 Wave.prototype.simulate = function(dt, speed, direction) {
-  this.x += speed * Math.sin(direction);
-  this.y += speed * Math.cos(direction);
+  this.x += speed * Math.cos(direction);
+  this.y += speed * Math.sin(direction);
 
   // If the wave was blow outside the simulation circle, reset it.
   var radius = Math.hypot(this.x, this.y);
