@@ -1,12 +1,16 @@
 
-const TILE_SIZE = 32;
+// World constants
+const TILE_SIZE = 16;
+const BOARD_SIZE_PX = TILE_SIZE * boardSize;
 
+// Asset constants
 const WORLD_IMAGE_WIDTH = 69;
 const WORLD_IMAGE_HEIGHT = 35;
 const WORLD_IMAGE_BORDER = 1;
 const WORLD_IMAGE_PADDING = 1;
 const WORLD_IMAGE_TILE_SIZE = 16;
 
+const IMAGES = {};
 const PLAYER_HEIGHT = 28;
 const PLAYER_WIDTH = 36;
 
@@ -24,12 +28,17 @@ playerImg.onload = function() {
   console.log("we have loaded the player once and never again");
 }
 
+
+
 function updateDisplay() {
+
   updateWorld();
-  updatePlayer(boardSize * TILE_SIZE / 2,boardSize * TILE_SIZE / 2,0);
+  updatePlayer();
+
 }
 
 function updateWorld() {
+
   var canvas = document.getElementById('gameBoard');
   var ctx = canvas.getContext('2d');
   for (var row = 0; row < board.length; row++) {
@@ -66,15 +75,12 @@ function updateWorld() {
 
 
 
-function updatePlayer(x, y, heading) {
+function updatePlayer() {
 
   var canvas = document.getElementById('gameBoard');
   var ctx = canvas.getContext('2d');
-
-
   ctx.drawImage(playerImg, 0, 0, PLAYER_WIDTH, PLAYER_HEIGHT,
-  x, y, PLAYER_WIDTH, PLAYER_HEIGHT)
-
+  playerX, playerY, PLAYER_WIDTH, PLAYER_HEIGHT)
 }
 
 function getWorldTileForDepth(depth) {
@@ -104,3 +110,17 @@ function getWorldTileForDepth(depth) {
     imageOffset * (WORLD_IMAGE_TILE_SIZE + WORLD_IMAGE_PADDING);
   return [sx, sy, WORLD_IMAGE_TILE_SIZE, WORLD_IMAGE_TILE_SIZE];
 }
+
+function loadImages() {
+  if (location.href.slice(0, 4) == "file") {
+    console.warn("Cannot load images using the file:/// protocol");
+    return
+  }
+  if ((new URLSearchParams(location.search)).get("block-loader") == "true") {
+    return
+  }
+  var loader = new ImageLoader();
+  IMAGES.GROUND = loader.load("Assets/land_and_sea.png").spritesheet({rows:2, cols:3, gap:1, border:1});
+}
+
+loadImages();

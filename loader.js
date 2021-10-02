@@ -1,12 +1,8 @@
 class ImageLoader {
   constructor() {
-    this.canvas = new OffscreenCanvas(0, 0);
-    this.canvas2 = new OffscreenCanvas(0, 0);
     this.img = null;
   }
   load(file) {
-    var ctx = this.canvas.getContext("2d");
-    ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     var img = new Image();
     img.src = file;
     this.img = img;
@@ -16,17 +12,12 @@ class ImageLoader {
     return this.img;
   }
   section(x, y, width, height) {
-    this.canvas.width = this.img.width;
-    this.canvas.height = this.img.height;
-    var ctx = this.canvas.getContext("2d");
-    ctx.drawImage(this.img, this.canvas.width, this.canvas.height);
-    var ctx2 = this.canvas2.getContext("2d");
-    var data = ctx.getImageData(x, y, width, height);
-    this.canvas2.width = width;
-    this.canvas2.height = height;
-    this.canvas2.putImageData(data, 0, 0);
+    var canvas = new OffscreenCanvas(img.width, img.height);
+    var ctx = canvas.getContext("2d");
+
+    ctx.drawImage(this.img, 0, 0, this.img.width, this.img.height, x, y, x + width, y + height);
     var img = new Image();
-    img.src = this.canvas2.toDataURL();
+    img.src = canvas.toDataURL();
     return img;
   }
   spritesheet(options = {}) {
