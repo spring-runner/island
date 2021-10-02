@@ -38,10 +38,10 @@ class ImageLoader {
     }, options);
     var tileWidth = (this.img.width - (options.border * 2)) / options.cols + (options.gap * (options.cols - 1));
     var tileHeight = (this.img.height - (options.border * 2)) / options.rows + (options.gap * (options.rows - 1));
-    var out = [];
+    var sheet = new Spritesheet();
     for (var y = 0; y < options.rows; y++) {
       for (var x = 0; x < options.cols; x++) {
-        out.push(this.section(
+        sheet.setFrame(x, y, this.section(
           tileWidth * x + options.border + options.gap * x,
           tileHeight * y + options.border + options.gap * y,
           tileWidth,
@@ -49,5 +49,28 @@ class ImageLoader {
         ));
       }
     }
+    return sheet;
+  }
+}
+
+class Spritesheet {
+  constructor() {
+    this.frames = [];
+  }
+  setFrame(x, y, image) {
+    this.frames[y] = this.frames[y] || [];
+    this.frames[y][x] = image;
+  }
+  getFrameAt(x, y = null) {
+    if (y == null) {
+      this.getFrameAtIndex(x);
+    }
+    if (this.frames[y] == null || this.frames[y][x] == null) {
+      throw new Error("Frame at " + x + ", " + y + " was not found in image '" + this.img.src + "'");
+    }
+    return this.frames[y][x];
+  }
+  getFrameAtIndex(i) {
+    this.getFrameAt(i % this.frames[0].length, Math.floor(i / this.frames[0].length));
   }
 }
