@@ -111,6 +111,9 @@ function loadImages() {
     console.warn("Cannot load images using the file:/// protocol");
     return
   }
+  if ((new URLSearchParams(location.search)).get("block-loader") == "true") {
+    return
+  }
   var loader = new ImageLoader();
   IMAGES.GROUND = loader.load("Assets/land_and_sea.png").spritesheet({rows:2, cols:3, gap:1, border:1});
 }
