@@ -7,14 +7,11 @@ const WORLD_IMAGE_BORDER = 1;
 const WORLD_IMAGE_PADDING = 1;
 const WORLD_IMAGE_TILE_SIZE = 16;
 
-<<<<<<< HEAD
 const IMAGES = {};
-=======
 const PLAYER_HEIGHT = 28;
 const PLAYER_WIDTH = 36;
 
 let playerIsLoaded;
->>>>>>> 72d293bd6c941e2c1dd822eb88ea82062bf04284
 
 var worldImg = new Image();
 worldImg.src = "Assets/land_and_sea.png";
@@ -71,7 +68,7 @@ function updateWorld() {
 
 
 function updatePlayer(x, y, heading) {
-  
+
   var canvas = document.getElementById('gameBoard');
   var ctx = canvas.getContext('2d');
 
