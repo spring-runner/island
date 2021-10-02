@@ -38,4 +38,4 @@ Get a frame of a spritesheet by position
 ```js
 spritesheet.getFrameAt(frame_x, frame_y);
 ```
-> `spritesheet#getFrameAt` calls `spritesheet#getFrameAtIndex` if it only recieves one argument
+> `spritesheet#getFrameAt` calls `spritesheet#getFrameAtIndex` if it only recieves only one argument
