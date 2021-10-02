@@ -7,7 +7,14 @@ const WORLD_IMAGE_BORDER = 1;
 const WORLD_IMAGE_PADDING = 1;
 const WORLD_IMAGE_TILE_SIZE = 16;
 
+<<<<<<< HEAD
 const IMAGES = {};
+=======
+const PLAYER_HEIGHT = 28;
+const PLAYER_WIDTH = 36;
+
+let playerIsLoaded;
+>>>>>>> 72d293bd6c941e2c1dd822eb88ea82062bf04284
 
 var worldImg = new Image();
 worldImg.src = "Assets/land_and_sea.png";
@@ -15,8 +22,15 @@ worldImg.onload = function() {
   updateDisplay();
 }
 
+var playerImg = new Image();
+playerImg.src = "Assets/Player.png";
+playerImg.onload = function() {
+  console.log("we have loaded the player once and never again");
+}
+
 function updateDisplay() {
   updateWorld();
+  updatePlayer(boardSize * TILE_SIZE / 2,boardSize * TILE_SIZE / 2,0);
 }
 
 function updateWorld() {
@@ -31,7 +45,18 @@ function updateWorld() {
     }
   }
 
+  // Display wind indicator
+  ctx.strokeStyle = "red";
+  ctx.beginPath();
+  ctx.moveTo(50, 50);
+  var speed = wind.speed(game_time);
+  var direction = wind.direction(game_time);
+  ctx.lineTo(50 + 10 * speed * Math.cos(direction),
+             50 - 10 * speed * Math.sin(direction));
+  ctx.stroke();
+
   // Display waves
+  ctx.strokeStyle = "black";
   var middle = board.length * TILE_SIZE / 2;
   for (var i = 0; i < waves.waves.length; ++i) {
     var wave = waves.waves[i];
@@ -41,6 +66,19 @@ function updateWorld() {
     ctx.arc(px, py, 10, 0, 2 * Math.PI);
     ctx.stroke();
   }
+}
+
+
+
+function updatePlayer(x, y, heading) {
+  
+  var canvas = document.getElementById('gameBoard');
+  var ctx = canvas.getContext('2d');
+
+
+  ctx.drawImage(playerImg, 0, 0, PLAYER_WIDTH, PLAYER_HEIGHT,
+  x, y, PLAYER_WIDTH, PLAYER_HEIGHT)
+
 }
 
 function getWorldTileForDepth(depth) {

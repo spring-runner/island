@@ -15,6 +15,8 @@ var image = loader.image();
 ```js
 loader.load(path).image();
 ```
+> All `ImageLoader` methods for loading and getting images are slow. Images or `Spritesheet` objects should be stored in init scripts and then used in the game loop.
+
 View part of an image
 ```js
 var section = loader.section(x, y, width, height);
@@ -34,6 +36,6 @@ spritesheet.getFrameAtIndex(frame_index);
 ```
 Get a frame of a spritesheet by position
 ```js
-spritesheet.getFrameAtIndex(frame_x, frame_y);
+spritesheet.getFrameAt(frame_x, frame_y);
 ```
-> Note: All `ImageLoader` methods for loading and getting images are slow. Images or `Spritesheet` objects should be stored in init scripts and then used in the game loop.
+> `spritesheet#getFrameAt` calls `spritesheet#getFrameAtIndex` if it only recieves only one argument
