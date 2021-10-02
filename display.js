@@ -28,6 +28,17 @@ function updateWorld() {
       row*TILE_SIZE, col*TILE_SIZE, TILE_SIZE, TILE_SIZE);
     }
   }
+
+  // Display waves
+  var middle = board.length * TILE_SIZE / 2;
+  for (var i = 0; i < waves.waves.length; ++i) {
+    var wave = waves.waves[i];
+    var px = middle + wave.x;
+    var py = middle - wave.y;
+    ctx.beginPath();
+    ctx.arc(px, py, 10, 0, 2 * Math.PI);
+    ctx.stroke();
+  }
 }
 
 function getWorldTileForDepth(depth) {

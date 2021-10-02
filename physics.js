@@ -72,7 +72,7 @@ Wind.prototype.direction = function(t) {
 //  Wave simulation
 //
 
-const wave_radius = 100;
+const wave_radius = 500;
 
 function Wave() {
   this.reset();
