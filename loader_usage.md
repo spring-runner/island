@@ -11,6 +11,10 @@ View an entire image
 ```js
 var image = loader.image();
 ```
+`ImageLoader#load()` returns itself so you can do...
+```js
+loader.load(path).image();
+```
 View part of an image
 ```js
 var section = loader.section(x, y, width, height);
@@ -24,11 +28,11 @@ var spritesheet = loader.spritesheet({
   border: padding_in_the_spritesheet
 });
 ```
-Get a frame of a spritesheet
+Get a frame of a spritesheet by index
 ```js
-spritesheet[frame_number]
+spritesheet.getFrameAtIndex(frame_index);
 ```
-Compact version
+Get a frame of a spritesheet by position
 ```js
-loader.load(path).image();
+spritesheet.getFrameAtIndex(frame_x, frame_y);
 ```
