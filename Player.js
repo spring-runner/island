@@ -8,15 +8,19 @@ function movePlayer() {
     console.log(key);
     if (key == "ArrowDown") {
       playerY += speed;
+      event.preventDefault();
     }
     if (key == "ArrowUp") {
       playerY -= speed;
+      event.preventDefault();
     }
     if (key == "ArrowLeft") {
       playerX -= speed;
+      event.preventDefault();
     }
     if (key == "ArrowRight") {
       playerX += speed;
+      event.preventDefault();
     }
   }
 }

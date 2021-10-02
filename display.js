@@ -1,6 +1,6 @@
 
 // World constants
-const TILE_SIZE = 32;
+const TILE_SIZE = 16;
 const BOARD_SIZE_PX = TILE_SIZE * boardSize;
 
 // Asset constants
