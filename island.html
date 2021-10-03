@@ -6,7 +6,26 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
     <link rel="stylesheet" href="style.css">
   </head>
-  <body onload="preload()">
+
+  <body onload="preload()" style="position:relative;">
+
+    <div id="splash" onclick="this.style.display = 'none';">
+      <h1>Eroding Chicken</h1>
+      <p>You are a common chicken farmer in an uncommon place:  on an island
+      eroding away into the sea.</p>
+
+      <p>Build dirt walls to stave off the waves while
+      raising alfalfa to feed your chickens.</p>
+
+      <p>Beware!  Chickens aren't too bright and the sea is cold.  You might
+      consider railings...</p>
+
+      <p>(Click to begin.)</p>
+
+      <p style="font-size:50%;">Wave sound from <a href="https://freesound.org/people/dragonphotographic/sounds/524269/">freesound.org</a></p>
+    </div>
+
+    <div id="page">
     <canvas id="gameBoard" width="768" height="768"></canvas>
     <div class="" id="inventory">
       <div class="inventoryKey">dirt</div>
@@ -18,20 +37,22 @@
     </div>
     <div id="inventory_div">
     </div>
+
     <div class="" id="help_div">
-      <table>
+      <table style="display:inline-block;">
         <tr>
-          <td><div class="key"> arrows</td> <td class="description">Move</td>
-          <td><div class="key">d</td> <td class="description">Dig</td>
-          <td><div class="key">w</td> <td class="description">Build walls</td>
+          <td><div class="key"> arrows</div></td> <td><div class="description">Move</div></td>
+          <td><div class="key">d</div></td> <td><div class="description">Dig</div></td>
+          <td><div class="key">w</div></td> <td><div class="description">Build walls<div></td>
         </tr>
         <tr>
-          <td><div class="key">f</td> <td class="description">Fill water with dirt</td>
-          <td><div class="key"> a </td> <td class="description">Plant alphapha</td>
-          <td><div class="key">t</td> <td class="description">Plant trees</td>
+          <td><div class="key">f</div></td> <td><div class="description">Fill water with dirt</div></td>
+          <td><div class="key">a</div></td> <td><div class="description">Plant alfalfa</div></td>
+          <td><div class="key">t</div></td> <td><div class="description">Plant trees</div></td>
         </tr>
       </table>
     </div>
+  </div>
     <script src="animals.js" charset="utf-8"></script>
     <script src="loader.js" charset="utf-8"></script>
     <script type="text/javascript" src="audio.js"></script>

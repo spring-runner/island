@@ -34,13 +34,21 @@ function updateDisplay() {
 }
 
 function updateWorld() {
-  const elevationColor = [
+/*  const elevationColor = [
     "#000090",
     "#0000a8",
     "lightgreen",
     "mediumseagreen",
     "seagreen",
     "gray",
+  ];*/
+  const elevationColor = [
+    "#0d4a89",
+    "#4e92aa",
+    "#F8E8A6",
+    "#37913D",
+    "#06560C",
+    "#222322",
   ];
 
   ctx = gameBoard.getContext("2d");
@@ -60,8 +68,15 @@ function updateWorld() {
         ctx.fillRect(px, py, TILE_SIZE, TILE_SIZE);
         drawSprite(ctx, "trees", Math.min(Math.floor(square.age / 15), 3), px, py);
       } else if (square.item == Item.rail) {
-        ctx.fillStyle = "pink";
+        ctx.fillStyle = elevationColor[square.elevation];
         ctx.fillRect(px, py, TILE_SIZE, TILE_SIZE);
+        var frameNum =
+          ((row > 0 && board[row - 1][col].item == Item.rail)?1:0) +
+          ((col > 0 && board[row][col - 1].item == Item.rail)?8:0) +
+          ((col < boardSize && board[row][col + 1].item == Item.rail)?2:0) +
+          ((row < boardSize && board[row + 1][col].item == Item.rail)?4:0);
+        drawSprite(ctx, "rail", frameNum, px, py);
+
       } else {
         ctx.fillStyle = elevationColor[square.elevation];
         ctx.fillRect(px, py, TILE_SIZE, TILE_SIZE);
@@ -84,7 +99,7 @@ function updateWorld() {
     ctx.stroke();
   }
 
-  drawSprite(ctx, "gull", Math.floor((game_time * 10) % 5), 200, 200);
+  drawCenteredSprite(ctx, "gull", Math.floor((game_time * 10) % 5), 200, 200, game_time);
 }
 
 function updatePlayer() {
@@ -92,11 +107,10 @@ function updatePlayer() {
   const player_width = 18;
 
   var ctx = gameBoard.getContext("2d");
-  ctx.drawImage(playerImg,
-    0, 0, player_width, player_height,
+
+  drawSprite(ctx, "player", Math.floor((game_time * 10) % 8),
     player_col * TILE_SIZE + (TILE_SIZE - player_width) / 2,
-    player_row * TILE_SIZE + (TILE_SIZE - player_height) / 2,
-    player_width, player_height);
+    player_row * TILE_SIZE + (TILE_SIZE - player_height) / 2);
 
   inventory_dirt_div.innerHTML = player_dirt;
   inventory_wood_div.innerHTML = player_wood;

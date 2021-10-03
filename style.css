@@ -1,6 +1,6 @@
 .key {
   display: inline-block;
-  background-color: lightblue;
+  background-color: #4E92AA;
   font-family: Courier New;
   width: 80px;
   text-align: center;
@@ -10,15 +10,29 @@
 
 .description {
   font-family: "Roboto";
+  text-align: left;
+  margin-right: 30px;
 }
 
+#page {
+  width:770px;
+}
 #help_div{
-  border-style: dashed;
+  text-align:center;
+  box-shadow:0px 0px 5px gray;
 }
 
 #inventory{
   margin-bottom: 20px;
+  margin-top: 10px;
   text-align: center;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  width:768px;
+}
+
+canvas {
+  border-radius: 5px;
 }
 
 .inventoryKey {
@@ -31,8 +45,23 @@
   font-family: Courier New;
   display: inline-block;
   width: 45px;
-  background-color: mediumseagreen;
+  background-color: #37913D;
   color:white;
   margin-right: 20px;
   font-weight: bold;
+  border-radius: 5px;
+  padding:5px;
+}
+
+#splash {
+  position:absolute;
+  left:50px;
+  top:50px;
+  font-size:24px;
+  background:white;
+  border:2px solid black;
+  width:500px;
+  height:500px;
+  padding:50px;
+  text-align:center;
 }
