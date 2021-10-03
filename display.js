@@ -84,27 +84,11 @@ function updateWorld() {
   }
 
   // Display waves
-/*
-  var middle = board.length * TILE_SIZE / 2;
-  var side_x = wind.uy * TILE_SIZE / 2;
-  var side_y = - wind.ux * TILE_SIZE / 2;
-  for (var i = 0; i < wave_list.length; ++i) {
-    var wave = wave_list[i];
-    var px = middle + wave.x;
-    var py = middle - wave.y;
-    ctx.strokeStyle = "white";
-    ctx.beginPath();
-    ctx.moveTo(px - side_x, py + side_y);
-    ctx.lineTo(px + side_x, py - side_y);
-    ctx.stroke();
-  }
-*/
-  // Pixel position of the middle of the game board.
   var middle = TILE_SIZE * boardSize / 2;
   for (var i = 0; i < wave_list.length; ++i) {
     var wave = wave_list[i];
     drawCenteredSprite(ctx, "wave",
-        Math.floor((game_time * 2 + wave.time_offset) % 3),
+        Math.floor((game_time * 3 + wave.time_offset) % 3),
         middle + wave.x, middle - wave.y, wind.theta - Math.PI / 2);
   }
 
