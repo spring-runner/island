@@ -1,14 +1,23 @@
 class ImageLoader {
   constructor() {
+    // Create a property called 'img' which will contain
     this.img = null;
   }
-  load(file) {
+  load(path, callback = loader => null) {
+    // Create an Image and set it's source path to the argument
     var img = new Image();
-    img.src = file;
+    img.src = path;
     this.img = img;
-    return this;
+    var loader = this;
+    img.onload = function () {
+      callback(loader);
+    };
+  }
+  path() {
+    return this.img.src;
   }
   image() {
+    // When the
     return this.img;
   }
   section(x, y, width, height) {
