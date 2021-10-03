@@ -58,7 +58,7 @@ function updateWorld() {
       } else if (square.item == Item.tree) {
         ctx.fillStyle = elevationColor[square.elevation];
         ctx.fillRect(px, py, TILE_SIZE, TILE_SIZE);
-        ctx.drawImage(IMAGES.TREES.getFrameAtIndex(Math.min(Math.floor(square.age / 15), 3)), px, py, TILE_SIZE, TILE_SIZE);
+        drawSprite(ctx, "trees", Math.min(Math.floor(square.age / 15), 3), px, py);
       } else if (square.item == Item.rail) {
         ctx.fillStyle = "pink";
         ctx.fillRect(px, py, TILE_SIZE, TILE_SIZE);
@@ -83,6 +83,8 @@ function updateWorld() {
     ctx.lineTo(px + side_x, py - side_y);
     ctx.stroke();
   }
+
+  drawSprite(ctx, "gull", Math.floor((game_time * 10) % 5), 200, 200);
 }
 
 function updatePlayer() {
@@ -106,9 +108,24 @@ function loadImages() {
     console.warn("Cannot load images via the " + location.protocol + " protocol. Aborted loadImages");
     return
   }
+  var toLoad = 2;
   ImageLoader.load("Assets/trees.png", function (img) {
     IMAGES.TREES = img.spritesheet({rows:2, cols:2, gap:0, border:0});
+    toLoad--;
+    tryInit();
   });
+  ImageLoader.load("Assets/chicken.png", function (img) {
+    IMAGES.CHICKEN = img.spritesheet({rows:1, cols:2, gap:0, border:0});
+    toLoad--;
+    tryInit();
+  });
+  function tryInit() {
+    if (toLoad == 0) {
+      init();
+    }
+  }
 }
 
-loadImages();
+function preload() {
+  loadImages();
+}
