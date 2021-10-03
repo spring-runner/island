@@ -1,6 +1,6 @@
 
 // World constants
-const TILE_SIZE = 16;
+const TILE_SIZE = 24;
 const BOARD_SIZE_PX = TILE_SIZE * boardSize;
 
 // Asset constants
@@ -28,25 +28,29 @@ playerImg.onload = function() {
   console.log("we have loaded the player once and never again");
 }
 
-
-
 function updateDisplay() {
-
   updateWorld();
   updatePlayer();
-
 }
 
 function updateWorld() {
+  const elevationColor = [
+    "#000090",
+    "#0000a8",
+    "yellowgreen",
+    "greenyellow",
+    "forestgreen",
+    "gray",
+  ];
 
-  var canvas = document.getElementById('gameBoard');
-  var ctx = canvas.getContext('2d');
-  for (var row = 0; row < board.length; row++) {
-    for (var col = 0; col < board[row].length; col++) {
-      var tileDepth = board[row][col].elevation;
-      tile = getWorldTileForDepth(tileDepth);
-      ctx.drawImage(worldImg, tile[0],tile[1], tile[2], tile[3],
-      row*TILE_SIZE, col*TILE_SIZE, TILE_SIZE, TILE_SIZE);
+  ctx = gameBoard.getContext("2d");
+  for (var row = 0; row < boardSize; ++row) {
+    for (var col = 0; col < boardSize; ++col) {
+      var square = board[row][col];
+      var px = col * TILE_SIZE;
+      var py = row * TILE_SIZE;
+      ctx.fillStyle = elevationColor[square.elevation];
+      ctx.fillRect(px, py, TILE_SIZE, TILE_SIZE);
     }
   }
 
