@@ -63,7 +63,7 @@ Wind.prototype.update = function(t) {
   this.vx = (w0 * this.vx_list[0] + w1 * this.vx_list[1] + w2 * this.vx_list[2]) / w;
   this.vy = (w0 * this.vy_list[0] + w1 * this.vy_list[1] + w2 * this.vy_list[2]) / w;
   this.speed = Math.hypot(this.vx, this.vy);
-  this.theta = Math.atan2(this.y, this.x);
+  this.theta = Math.atan2(this.vy, this.vx);
   this.ux = this.vx / this.speed;
   this.uy = this.vy / this.speed;
 }

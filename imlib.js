@@ -31,6 +31,14 @@ const imageLibrary = {
    "num_across" : 4,
    "num_down" : 4,
  },
+
+ "wave" : {
+   "file" : "Assets/waves.png",
+   "width" : 24,
+   "height" : 12,
+   "num_across" : 1,
+   "num_down" : 1,
+ }
 };
 
 function initImlib() {
