@@ -99,7 +99,7 @@ function updateWorld() {
     ctx.stroke();
   }
 
-  drawSprite(ctx, "gull", Math.floor((game_time * 10) % 5), 200, 200);
+  drawCenteredSprite(ctx, "gull", Math.floor((game_time * 10) % 5), 200, 200, game_time);
 }
 
 function updatePlayer() {
