@@ -1,6 +1,6 @@
 .key {
   display: inline-block;
-  background-color: #4E92AA;
+  background-color: #91CADF;
   font-family: Courier New;
   width: 80px;
   text-align: center;
@@ -45,7 +45,7 @@ canvas {
   font-family: Courier New;
   display: inline-block;
   width: 45px;
-  background-color: #37913D;
+  background-color: #256495;
   color:white;
   margin-right: 20px;
   font-weight: bold;

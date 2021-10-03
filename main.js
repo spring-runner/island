@@ -85,10 +85,6 @@ function makeWorld() {
   }
 }
 
-ImageLoader.load("Assets/trees.png", function (img) {
-  img.image();
-});
-
 function init() {
   makeWorld();
 

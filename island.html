@@ -21,6 +21,8 @@
       consider railings...</p>
 
       <p>(Click to begin.)</p>
+
+      <p style="font-size:50%;">Wave sound from <a href="https://freesound.org/people/dragonphotographic/sounds/524269/">freesound.org</a></p>
     </div>
 
     <div id="page">
@@ -60,5 +62,16 @@
     <script type="text/javascript" src="main.js"></script>
     <script type="text/javascript" src="display.js"></script>
     <script type="text/javascript" src="Player.js"></script>
+    <script type="text/javascript">
+      document.body.addEventListener('click', startMusic);
+      document.body.addEventListener('keydown', startMusic);
+      function startMusic() {
+        audio.wave.volume = 0.1;
+        if (audio.music.paused) {
+          audio.music.play();
+          audio.music.loop = true;
+        }
+      }
+    </script>
   </body>
 </html>

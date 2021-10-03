@@ -4,6 +4,7 @@
 var audio = {
   "wave" : "Assets/wave.m4a",
   "gull" : "Assets/gull.m4a",
+  "music" : "Assets/Synthetic.mp3"
 };
 
 function initAudio() {
