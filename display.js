@@ -34,13 +34,21 @@ function updateDisplay() {
 }
 
 function updateWorld() {
-  const elevationColor = [
+/*  const elevationColor = [
     "#000090",
     "#0000a8",
     "lightgreen",
     "mediumseagreen",
     "seagreen",
     "gray",
+  ];*/
+  const elevationColor = [
+    "#0d4a89",
+    "#4e92aa",
+    "#F8E8A6",
+    "#37913D",
+    "#06560C",
+    "#222322",
   ];
 
   ctx = gameBoard.getContext("2d");
