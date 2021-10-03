@@ -12,6 +12,9 @@
   font-family: "Roboto";
 }
 
+#page {
+  width:770px;
+}
 #help_div{
   border-style: dashed;
 }
