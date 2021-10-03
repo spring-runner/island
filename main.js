@@ -37,7 +37,7 @@ function makeWorld() {
   }
 
   // Generate the world.  Place some lava.
-  for (var i = 0; i < 10; ++i) {
+  for (var i = 0; i < 5; ++i) {
     var r = 0;
     var c = 0;
     for (var j = 0; j < 10; ++j) {
@@ -50,20 +50,24 @@ function makeWorld() {
   }
 
   // Now grow outward from the lava.
-  var grows = 0;
-  while (grows < 500) {
-    var r = Math.floor(Math.random() * (boardSize - 2) + 1);
-    var c = Math.floor(Math.random() * (boardSize - 2) + 1);
-    var square = board[r][c];
-    if (square.elevation < Elevation.lava) {
-      var elev =
-          Math.ceil((board[r-1][c].elevation +
-                     board[r+1][c].elevation +
-                     board[r][c-1].elevation +
-                     board[r][c+1].elevation) / 4);
-      if (elev > square.elevation) {
-        square.elevation = elev;
-        grows += 1;
+  var smooth = Array(boardSize).fill(0).map(x => Array(boardSize).fill(0));
+  for (var i = 0; i < 5; ++i) {
+    for (var r = 1; r + 1 < boardSize; ++r) {
+      for (var c = 1; c + 1 < boardSize; ++c) {
+        smooth[r][c] = Math.max(
+          board[r][c].elevation,
+          Math.round((
+            board[r - 1][c].elevation +
+            board[r + 1][c].elevation +
+            board[r][c - 1].elevation +
+            board[r][c + 1].elevation +
+            2 * Math.random()) / 4));
+      }
+    }
+
+    for (var r = 1; r + 1 < boardSize; ++r) {
+      for (var c = 1; c + 1 < boardSize; ++c) {
+        board[r][c].elevation = smooth[r][c];
       }
     }
   }
