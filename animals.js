@@ -83,7 +83,7 @@ class Chicken extends Animal {
       return;
     }
     var tile = board[Math.floor(this.y / TILE_SIZE)][Math.floor(this.x / TILE_SIZE)];
-    if (tile.elevation == Elevation.depths || tile == null || this.age <= 0) {
+    if (tile == null || tile.elevation == Elevation.depths || this.age <= 0) {
       animals.animals.splice(animals.animals.indexOf(this), 1);
     }
     if (tile.elevation <= 1 && this.run <= 0) {
