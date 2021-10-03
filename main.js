@@ -92,6 +92,7 @@ ImageLoader.load("Assets/trees.png", function (img) {
 function init() {
   makeWorld();
 
+  initAudio();
   initPhysics();
   initPlayer();
 
