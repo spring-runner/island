@@ -66,13 +66,13 @@ class Chicken extends Animal {
         this.dir += this.dirv / 10;
       }
     }
-    var target = board[Math.floor((this.y + Math.sin(this.dir) * -5) / TILE_SIZE)][Math.floor((this.x + Math.cos(this.dir) * -5) / TILE_SIZE)];
+    var target = board[Math.floor((this.y + Math.sin(this.dir) * -10) / TILE_SIZE)][Math.floor((this.x + Math.cos(this.dir) * -10) / TILE_SIZE)];
     if (this.run > 0) {
       if (target != null && target.elevation != Elevation.depths && (target.elevation != Elevation.shallows || Math.random() > 0.9)) {
         this.x += Math.sin(this.dir) * -1;
         this.y += Math.cos(this.dir) * -1;
       } else {
-        this.turn = Math.random() * 20 + 10;
+        this.turn = Math.random() * 10 + 5;
         this.run = 0;
       }
     }
