@@ -96,14 +96,9 @@ function updatePlayer() {
     player_row * TILE_SIZE + (TILE_SIZE - player_height) / 2,
     player_width, player_height);
 
-  inventory_div.innerHTML = "dirt = " + player_dirt + " wood = " + player_wood + " landmass = " + landmass;
-
-  /*
-  var canvas = document.getElementById('gameBoard');
-  var ctx = canvas.getContext('2d');
-  ctx.drawImage(playerImg, 0, 0, PLAYER_WIDTH, PLAYER_HEIGHT,
-  playerX, playerY, PLAYER_WIDTH, PLAYER_HEIGHT);
-  */
+  inventory_dirt_div.innerHTML = player_dirt;
+  inventory_wood_div.innerHTML = player_wood;
+  inventory_landmass_div.innerHTML = landmass;
 }
 
 function loadImages() {
