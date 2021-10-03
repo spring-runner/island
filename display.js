@@ -108,9 +108,9 @@ function updatePlayer() {
 
   var ctx = gameBoard.getContext("2d");
 
-  drawSprite(ctx, "player", Math.floor((game_time * 10) % 8),
-    player_col * TILE_SIZE + (TILE_SIZE - player_width) / 2,
-    player_row * TILE_SIZE + (TILE_SIZE - player_height) / 2);
+  drawCenteredSprite(ctx, "player", Math.floor((game_time * 10) % 8),
+    (player_col + 0.5) * TILE_SIZE, (player_row + 0.5) * TILE_SIZE,
+    player_angle);
 
   inventory_dirt_div.innerHTML = player_dirt;
   inventory_wood_div.innerHTML = player_wood;
