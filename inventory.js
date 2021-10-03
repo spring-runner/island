@@ -4,5 +4,6 @@ class Inventory {
     this.seeds = 0;
     this.saplings = 0;
     this.dirt = 0;
+    this.wood = 0;
   }
 }
