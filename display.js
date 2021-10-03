@@ -84,8 +84,7 @@ function updateWorld() {
   }
 
   // Display waves
-
-  /*
+/*
   var middle = board.length * TILE_SIZE / 2;
   var side_x = wind.uy * TILE_SIZE / 2;
   var side_y = - wind.ux * TILE_SIZE / 2;
@@ -99,14 +98,13 @@ function updateWorld() {
     ctx.lineTo(px + side_x, py - side_y);
     ctx.stroke();
   }
-  */
-
+*/
   // Pixel position of the middle of the game board.
   var middle = TILE_SIZE * boardSize / 2;
   for (var i = 0; i < wave_list.length; ++i) {
     var wave = wave_list[i];
     drawCenteredSprite(ctx, "wave", 0,
-        middle + wave.x, middle + wave.y, wind.theta + Math.PI / 2);
+        middle + wave.x, middle - wave.y, wind.theta - Math.PI / 2);
   }
 
   drawCenteredSprite(ctx, "gull", Math.floor((game_time * 10) % 5),
