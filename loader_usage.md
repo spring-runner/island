@@ -1,41 +1,40 @@
 # Using `ImageLoader`
-Create an `ImageLoader`
-```js
-var loader = new ImageLoader();
-```
 Load an image
 ```js
-loader.load(path, callback);
+ImageLoader.load(path, function (image) {
+  ...
+});
 ```
 View an entire image
 ```js
-loader.load(path, function() {
-  var image = loader.image();
+ImageLoader.load(path, function (img) {
+  img.image();
 });
 ```
-> All `ImageLoader` methods for loading and getting images are slow. Images or `Spritesheet` objects should be stored in init scripts and then used in the game loop.
+> All `ImageLoader` methods for loading and getting images are slow. `Image`, `ImageLoader.Image` or `ImageLoader.Spritesheet` objects should be stored in init scripts and then used in the game loop.
 
 A way to call a function when an image loads.
 ```js
-loader.load(path, function() {
-  imageLoaded(loader.path(), loader.image());
+ImageLoader.load(path, function (img) {
+  imageLoaded(img.path(), img.image());
 });
 
 function imageLoaded(path, img) {
   ...
 }
 ```
-> As shown in this example, `ImageLoader#path` gives you the path to the image that has been loaded
+> As shown in this example, `ImageLoader.Image#path` gives you the path to the image that has been loaded
 
 View part of an image
 ```js
-// Load an image, then...
-var section = loader.section(x, y, width, height);
+ImageLoader.load(path, function (img) {
+  img.section(x, y, width, height);
+});
 ```
 View the contents of a spritesheet
 ```js
 // Load an image, then...
-var spritesheet = loader.spritesheet({
+var spritesheet = img.spritesheet({
   rows: rows_in_the_spritesheet,
   cols: columns_in_the_spritesheet,
   gap: gaps_around_the_frames,
@@ -50,27 +49,4 @@ Get a frame of a spritesheet by position
 ```js
 spritesheet.getFrameAt(frame_x, frame_y);
 ```
-> `spritesheet#getFrameAt` calls `spritesheet#getFrameAtIndex` if it only recieves only one argument
-
-# Example for many loading images
-```js
-function loadImages(paths, callback) {
-  var images = {};
-  for (var index = 0; index < path.length; index++) {
-    loadImage(path[index], function () {
-      if (Object.keys(images).length == paths.length) {
-        callback(images);
-      }
-    });
-  }
-  function loadImage(callback) {
-    loader.load(path, function() {
-      saveImage(loader.path(), loader.image());
-      callback();
-    });
-  }
-  function saveImage(path, image) {
-    images[path] = image;
-  }
-}
-```
+> `ImageLoader.Spritesheet#getFrameAt` calls `ImageLoader.Spritesheet#getFrameAtIndex` if it only recieves only one argument
