@@ -83,6 +83,8 @@ function updateWorld() {
     ctx.lineTo(px + side_x, py - side_y);
     ctx.stroke();
   }
+
+  drawSprite(ctx, "gull", Math.floor((game_time * 10) % 5), 200, 200);
 }
 
 function updatePlayer() {
