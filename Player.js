@@ -1,6 +1,6 @@
 var playerX = 100;
 var playerY = 100;
-var speed = 10;
+var speed = 5;
 function movePlayer() {
     var keys = [];
   document.onkeydown = function() {
