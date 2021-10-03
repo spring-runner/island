@@ -60,11 +60,9 @@ function updateWorld() {
         ctx.fillRect(px, py, TILE_SIZE, TILE_SIZE);
         drawSprite(ctx, "trees", Math.min(Math.floor(square.age / 15), 3), px, py);
       } else if (square.item == Item.rail) {
-
-         drawSprite(ctx, "fence", 11, px, py);
-
-
-
+        ctx.fillStyle = elevationColor[square.elevation];
+        ctx.fillRect(px, py, TILE_SIZE, TILE_SIZE);
+        drawSprite(ctx, "rail", 3, px, py);
       } else {
         ctx.fillStyle = elevationColor[square.elevation];
         ctx.fillRect(px, py, TILE_SIZE, TILE_SIZE);

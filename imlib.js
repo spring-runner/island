@@ -24,8 +24,8 @@ const imageLibrary = {
    "num_down" : 4,
  },
 
- "fence" : {
-   "file" : "Assets/Fence.png",
+ "rail" : {
+   "file" : "Assets/railing.png",
    "width" : 24,
    "height" : 24,
    "num_across" : 4,
