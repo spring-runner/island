@@ -133,6 +133,7 @@ function erode(lo, hi) {
     lo.elevation += 1;
   } else {
     // water wins...
+    audio.wave.play();
     hi.item = Item.none;  // destroy any item
     if (hi.elevation >= lo.elevation + 2) {
       lo.elevation += 1;  // some land falls into the water

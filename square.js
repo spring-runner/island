@@ -12,6 +12,7 @@ const Item = {
   "alfalfa" : 1,
   "wall" : 2,
   "tree" : 3,
+  "rail" : 4,
 };
 
 function Square(row, col) {
