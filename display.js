@@ -87,7 +87,7 @@ function updatePlayer() {
     player_row * TILE_SIZE + (TILE_SIZE - player_height) / 2,
     player_width, player_height);
 
-  inventory_div.innerHTML = "dirt = " + player_dirt;
+  inventory_div.innerHTML = "dirt = " + player_dirt + " landmass = " + landmass;
 
   /*
   var canvas = document.getElementById('gameBoard');

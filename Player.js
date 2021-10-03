@@ -20,7 +20,7 @@ function initPlayer() {
       if (square.item == Item.wall) {
         // dig up a wall
         player_dirt += 1;
-        square.item = Item.non;
+        square.item = Item.none;
       } else if (square.elevation > Elevation.beach) {
         // dig up the ground
         player_dirt += 1;
@@ -35,7 +35,8 @@ function initPlayer() {
     } else if (key == "a") {
       // plant alfalfa
       if (square.elevation >= Elevation.beach &&
-          square.elevation < Elevation.lava) {
+          square.elevation < Elevation.lava &&
+          square.item == Item.none) {
         square.item = Item.alfalfa;
         square.age = 0;
       }

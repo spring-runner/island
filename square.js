@@ -21,7 +21,10 @@ function Square(row, col) {
   this.age = 0;
 }
 
+var landmass = 0;
+
 function simulateSquares(dt) {
+  landmass = 0;
   for (var row = 0; row < boardSize; ++row) {
     for (var col = 0; col < boardSize; ++col) {
       var square = board[row][col];
@@ -35,6 +38,8 @@ function simulateSquares(dt) {
           }
         }
       }
+
+      landmass += Math.max(square.elevation - Elevation.shallows, 0);
     }
   }
 }
