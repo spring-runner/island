@@ -70,6 +70,13 @@ function makeWorld() {
       }
     }
   }
+
+  // Sprinkle a bit more lava
+  for (var i = 0; i < 6; ++i) {
+    r = Math.floor(boardSize * Math.random());
+    c = Math.floor(boardSize * Math.random());
+    board[r][c].elevation = Elevation.lava;
+  }
 }
 
 function init() {
