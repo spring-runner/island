@@ -96,14 +96,9 @@ function updatePlayer() {
     player_row * TILE_SIZE + (TILE_SIZE - player_height) / 2,
     player_width, player_height);
 
-  inventory_div.innerHTML = "dirt = " + player_dirt + " wood = " + player_wood + " landmass = " + landmass;
-
-  /*
-  var canvas = document.getElementById('gameBoard');
-  var ctx = canvas.getContext('2d');
-  ctx.drawImage(playerImg, 0, 0, PLAYER_WIDTH, PLAYER_HEIGHT,
-  playerX, playerY, PLAYER_WIDTH, PLAYER_HEIGHT);
-  */
+  inventory_dirt_div.innerHTML = player_dirt;
+  inventory_wood_div.innerHTML = player_wood;
+  inventory_landmass_div.innerHTML = landmass;
 }
 
 function loadImages() {
@@ -111,9 +106,24 @@ function loadImages() {
     console.warn("Cannot load images via the " + location.protocol + " protocol. Aborted loadImages");
     return
   }
+  var toLoad = 2;
   ImageLoader.load("Assets/trees.png", function (img) {
     IMAGES.TREES = img.spritesheet({rows:2, cols:2, gap:0, border:0});
+    toLoad--;
+    tryInit();
   });
+  ImageLoader.load("Assets/chicken.png", function (img) {
+    IMAGES.CHICKEN = img.spritesheet({rows:1, cols:2, gap:0, border:0});
+    toLoad--;
+    tryInit();
+  });
+  function tryInit() {
+    if (toLoad == 0) {
+      init();
+    }
+  }
 }
 
-loadImages();
+function preload() {
+  loadImages();
+}
