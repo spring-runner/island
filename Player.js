@@ -10,17 +10,29 @@ function initPlayer() {
     var square = board[player_row][player_col];
 
     if (key == "ArrowDown") {
-      player_row = Math.min(player_row + 1, boardSize - 1);
+      if (board[player_row + 1][player_col].elevation != Elevation.depths) {
+        player_row = Math.min(player_row + 1, boardSize - 1);
+      }
       player_angle = 0;
+
     } else if (key == "ArrowUp") {
-      player_row = Math.max(player_row - 1, 0);
+      if (board[player_row - 1][player_col].elevation != Elevation.depths) {
+              player_row = Math.max(player_row - 1, 0);
+      }
       player_angle = 0;
+
     } else if (key == "ArrowLeft") {
-      player_col = Math.max(player_col - 1, 0);
+      if (board[player_row][player_col - 1].elevation != Elevation.depths) {
+              player_col = Math.max(player_col - 1, 0);
+      }
       player_angle = Math.PI / 2;
+
     } else if (key == "ArrowRight") {
-      player_col = Math.min(player_col + 1, boardSize - 1);
+      if (board[player_row][player_col + 1].elevation != Elevation.depths) {
+        player_col = Math.min(player_col + 1, boardSize - 1);
+      }
       player_angle = Math.PI / 2;
+
     } else if (key == "d") {
       // dig
       if (square.item == Item.wall) {
