@@ -62,5 +62,16 @@
     <script type="text/javascript" src="main.js"></script>
     <script type="text/javascript" src="display.js"></script>
     <script type="text/javascript" src="Player.js"></script>
+    <script type="text/javascript">
+      document.body.addEventListener('click', startMusic);
+      document.body.addEventListener('keydown', startMusic);
+      function startMusic() {
+        audio.wave.volume = 0.1;
+        if (audio.music.paused) {
+          audio.music.play();
+          audio.music.loop = true;
+        }
+      }
+    </script>
   </body>
 </html>
