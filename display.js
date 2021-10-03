@@ -11,8 +11,8 @@ const WORLD_IMAGE_PADDING = 1;
 const WORLD_IMAGE_TILE_SIZE = 16;
 
 const IMAGES = {};
-const PLAYER_HEIGHT = 24;
-const PLAYER_WIDTH = 24;
+const PLAYER_HEIGHT = 10;
+const PLAYER_WIDTH = 18;
 
 let playerIsLoaded;
 
