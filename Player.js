@@ -22,6 +22,12 @@ function initPlayer() {
         // dig up a wall
         player_dirt += 1;
         square.item = Item.none;
+      } else if (square.item == Item.tree) {
+        // dig up a tree - get wood when halfway grown
+        if (square.age > 30) {
+          player_wood += 1;
+        }
+        square.item = Item.none;
       } else if (square.elevation > Elevation.beach &&
                  square.elevation < Elevation.lava) {
         // dig up the ground
