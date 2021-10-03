@@ -1,6 +1,7 @@
 var ImageLoader = {
   load: function load(path, callback = loader => null) {
     // Create an Image and set it's source path to the argument
+    console.log("Loading image '" + path + "'");
     return new ImageLoader.Image(path, callback);
   },
   Image: class {
@@ -37,9 +38,8 @@ var ImageLoader = {
         gap:0,   // The gap between each frame in the spritesheet
         border:0 // The border around the edge of the spritesheet
       }, options);
-      var tileWidth = (this.img.width - (options.border * 2)) / options.cols;
-      var tileHeight = (this.img.height - (options.border * 2)) / options.rows;
-      console.log(tileWidth, tileHeight);
+      var tileWidth = (this.img.width - (options.border * 2) - options.gap * (options.cols - 1)) / options.cols;
+      var tileHeight = (this.img.height - (options.border * 2) - options.gap * (options.rows - 1)) / options.rows;
       var sheet = new ImageLoader.Spritesheet();
       for (var y = 0; y < options.rows; y++) {
         for (var x = 0; x < options.cols; x++) {
