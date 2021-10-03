@@ -38,7 +38,21 @@ const imageLibrary = {
    "height" : 12,
    "num_across" : 3,
    "num_down" : 1,
- }
+ },
+
+ "egg" : {
+   "file" : "Assets/egg.png",
+   "width" : 24,
+   "height" : 24,
+ },
+
+ "alf" : {
+   "file" : "Assets/Alfalfa.png",
+   "width" : 24,
+   "height" : 24,
+   "num_across" : 2,
+   "num_down" : 3,
+ },
 };
 
 function initImlib() {

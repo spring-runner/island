@@ -57,59 +57,40 @@ function updateWorld() {
       var square = board[row][col];
       var px = col * TILE_SIZE;
       var py = row * TILE_SIZE;
+
+      // Draw base ground
       if (square.item == Item.wall) {
         ctx.fillStyle = "saddlebrown";
         ctx.fillRect(px, py, TILE_SIZE, TILE_SIZE);
-      } else if (square.item == Item.alfalfa) {
-        ctx.fillStyle = "yellow";
-        ctx.fillRect(px, py, TILE_SIZE, TILE_SIZE);
-      } else if (square.item == Item.tree) {
+      } else {
         ctx.fillStyle = elevationColor[square.elevation];
         ctx.fillRect(px, py, TILE_SIZE, TILE_SIZE);
+      }
+
+      // Draw decorations
+      if (square.item == Item.alfalfa) {
+        drawSprite(ctx, "alf", Math.min(Math.floor(square.age / 10), 5), px, py);
+      } else if (square.item == Item.tree) {
         drawSprite(ctx, "trees", Math.min(Math.floor(square.age / 15), 3), px, py);
       } else if (square.item == Item.rail) {
-        ctx.fillStyle = elevationColor[square.elevation];
-        ctx.fillRect(px, py, TILE_SIZE, TILE_SIZE);
         var frameNum =
           ((row > 0 && board[row - 1][col].item == Item.rail)?1:0) +
           ((col > 0 && board[row][col - 1].item == Item.rail)?8:0) +
           ((col < boardSize && board[row][col + 1].item == Item.rail)?2:0) +
           ((row < boardSize && board[row + 1][col].item == Item.rail)?4:0);
         drawSprite(ctx, "rail", frameNum, px, py);
-      } else {
-        ctx.fillStyle = elevationColor[square.elevation];
-        ctx.fillRect(px, py, TILE_SIZE, TILE_SIZE);
       }
     }
   }
 
   // Display waves
-/*
-  var middle = board.length * TILE_SIZE / 2;
-  var side_x = wind.uy * TILE_SIZE / 2;
-  var side_y = - wind.ux * TILE_SIZE / 2;
-  for (var i = 0; i < wave_list.length; ++i) {
-    var wave = wave_list[i];
-    var px = middle + wave.x;
-    var py = middle - wave.y;
-    ctx.strokeStyle = "white";
-    ctx.beginPath();
-    ctx.moveTo(px - side_x, py + side_y);
-    ctx.lineTo(px + side_x, py - side_y);
-    ctx.stroke();
-  }
-*/
-  // Pixel position of the middle of the game board.
   var middle = TILE_SIZE * boardSize / 2;
   for (var i = 0; i < wave_list.length; ++i) {
     var wave = wave_list[i];
     drawCenteredSprite(ctx, "wave",
-        Math.floor((game_time * 2 + wave.time_offset) % 3),
+        Math.floor((game_time * 3 + wave.time_offset) % 3),
         middle + wave.x, middle - wave.y, wind.theta - Math.PI / 2);
   }
-
-  drawCenteredSprite(ctx, "gull", Math.floor((game_time * 10) % 5),
-      200, 200, game_time);
 }
 
 function updatePlayer() {
