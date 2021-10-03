@@ -111,9 +111,24 @@ function loadImages() {
     console.warn("Cannot load images via the " + location.protocol + " protocol. Aborted loadImages");
     return
   }
+  var toLoad = 2;
   ImageLoader.load("Assets/trees.png", function (img) {
     IMAGES.TREES = img.spritesheet({rows:2, cols:2, gap:0, border:0});
+    toLoad--;
+    tryInit();
   });
+  ImageLoader.load("Assets/chicken.png", function (img) {
+    IMAGES.CHICKEN = img.spritesheet({rows:1, cols:2, gap:0, border:0});
+    toLoad--;
+    tryInit();
+  });
+  function tryInit() {
+    if (toLoad == 0) {
+      init();
+    }
+  }
 }
 
-loadImages();
+function preload() {
+  loadImages();
+}

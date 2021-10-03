@@ -22,6 +22,12 @@ function animate() {
 
   // movePlayer() - commented out for now
 
+  // Update animals
+  animals.update();
+
+  // Draw animals
+  animals.draw();
+
   // Continue the animation loop
   window.requestAnimationFrame(animate);
 }
