@@ -19,13 +19,13 @@ let playerIsLoaded;
 var worldImg = new Image();
 worldImg.src = "Assets/land_and_sea.png";
 worldImg.onload = function() {
-  updateDisplay();
+  console.log("World images loaded.");
 }
 
 var playerImg = new Image();
 playerImg.src = "Assets/Player.png";
 playerImg.onload = function() {
-  console.log("we have loaded the player once and never again");
+  console.log("Player image loaded.");
 }
 
 function updateDisplay() {
