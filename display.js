@@ -113,7 +113,7 @@ function loadImages() {
   }
   ImageLoader.load("Assets/trees.png", function (img) {
     IMAGES.TREES = img.spritesheet({rows:2, cols:2, gap:0, border:0});
-t  });
+  });
 }
 
 loadImages();
