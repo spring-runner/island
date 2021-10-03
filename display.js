@@ -62,7 +62,13 @@ function updateWorld() {
       } else if (square.item == Item.rail) {
         ctx.fillStyle = elevationColor[square.elevation];
         ctx.fillRect(px, py, TILE_SIZE, TILE_SIZE);
-        drawSprite(ctx, "rail", 3, px, py);
+        var frameNum =
+          ((row > 0 && board[row - 1][col].item == Item.rail)?1:0) +
+          ((col > 0 && board[row][col - 1].item == Item.rail)?8:0) +
+          ((col < boardSize && board[row][col + 1].item == Item.rail)?2:0) +
+          ((row < boardSize && board[row + 1][col].item == Item.rail)?4:0);
+        drawSprite(ctx, "rail", frameNum, px, py);
+
       } else {
         ctx.fillStyle = elevationColor[square.elevation];
         ctx.fillRect(px, py, TILE_SIZE, TILE_SIZE);
