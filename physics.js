@@ -79,6 +79,7 @@ function Wave(wind) {
   this.wind = wind;
   this.prev_square = null;
   this.square = null;
+  this.time_offset = Math.random() * 10;  // keeps animations out of sync
   this.reset();
 }
 

@@ -36,7 +36,7 @@ const imageLibrary = {
    "file" : "Assets/waves.png",
    "width" : 24,
    "height" : 12,
-   "num_across" : 1,
+   "num_across" : 3,
    "num_down" : 1,
  }
 };
