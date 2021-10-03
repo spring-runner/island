@@ -6,12 +6,14 @@
   text-align: center;
   border-radius: 10px;
   font-weight: bold;
+  color: #222322;
 }
 
 .description {
   font-family: "Roboto";
   text-align: left;
   margin-right: 30px;
+  color: #222322;
 }
 
 #page {
@@ -40,6 +42,7 @@ canvas {
   font-family: "Roboto";
   display: inline-block;
   font-weight: bold;
+  color: #222322;
 }
 
 .inventoryValue {
@@ -67,4 +70,5 @@ canvas {
   padding:50px;
   text-align:center;
   font-family:"Roboto";
+  color: #222322;
 }
