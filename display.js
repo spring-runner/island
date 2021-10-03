@@ -91,9 +91,6 @@ function updateWorld() {
         Math.floor((game_time * 3 + wave.time_offset) % 3),
         middle + wave.x, middle - wave.y, wind.theta - Math.PI / 2);
   }
-
-  drawCenteredSprite(ctx, "gull", Math.floor((game_time * 10) % 5),
-      200, 200, game_time);
 }
 
 function updatePlayer() {
