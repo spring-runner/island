@@ -7,7 +7,13 @@ const imageLibrary = {
     "num_down" : 3,
     "gap" : 0,  // TODO: add support for gaps in drawSprite()
  },
-
+ "trees" : {
+   "file" : "Assets/trees.png",
+   "width" : 24,
+   "height" : 24,
+   "num_across" : 2,
+   "num_down" : 2,
+ },
 };
 
 function initImlib() {
