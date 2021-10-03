@@ -125,7 +125,7 @@ function erode(lo, hi) {
   } else if (hi.item == Item.alfalfa) {
     stability = 0.2;
   } else if (hi.item == Item.wall) {
-    stability = 0.95;
+    stability = 0.9;
   }
 
   if (Math.random() < stability) {

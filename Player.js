@@ -2,6 +2,7 @@ function initPlayer() {
   player_row = Math.floor(boardSize / 2);
   player_col = Math.floor(boardSize / 2);
   player_dirt = 0;
+  player_wood = 0;
 
   document.onkeydown = function(e) {
     var key = event.key;
@@ -48,6 +49,14 @@ function initPlayer() {
           square.elevation < Elevation.lava) {
         square.item = Item.wall;
         player_dirt -= 1;
+      }
+    } else if (key == "t") {
+      // build a tree
+      if (square.item == Item.none &&
+          square.elevation >= Elevation.beach &&
+          square.elevation < Elevation.lava) {
+        square.item = Item.tree;
+        square.age = 0;
       }
     }
   }

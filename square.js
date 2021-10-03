@@ -11,6 +11,7 @@ const Item = {
   "none" : 0,
   "alfalfa" : 1,
   "wall" : 2,
+  "tree" : 3,
 };
 
 function Square(row, col) {
@@ -33,8 +34,15 @@ function simulateSquares(dt) {
         square.age += dt;
         if (square.age > 60) {
           square.item = Item.none;
+          // Alfalfa... eventually dies?
+        }
+      } else if (square.item == Item.tree) {
+        square.age += dt;
+        if (square.age > 60) {
+          square.item = Item.none;
           if (square.elevation + 1 < Elevation.lava) {
             square.elevation += 1;
+            player_wood += 1;
           }
         }
       }
