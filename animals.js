@@ -53,6 +53,7 @@ class Chicken extends Animal {
     this.stopped = false;
     this.canTurn = true;
     this.age = Math.random() * 2 + 1;
+    this.smartness = Math.random() / 200;
   }
   update() {
     if (this.turn > 0 || this.run > 0 && this.canTurn) {
@@ -66,14 +67,13 @@ class Chicken extends Animal {
         this.dir += this.dirv / 10;
       }
     }
-    var target = board[Math.floor((this.y + Math.sin(this.dir) * -10) / TILE_SIZE)][Math.floor((this.x + Math.cos(this.dir) * -10) / TILE_SIZE)];
     if (this.run > 0) {
-      if (target != null && target.elevation != Elevation.depths && (target.elevation != Elevation.shallows || Math.random() > 0.9)) {
-        this.x += Math.sin(this.dir) * -1;
-        this.y += Math.cos(this.dir) * -1;
-      } else {
-        this.turn = Math.random() * 10 + 5;
-        this.run = 0;
+      this.x += Math.sin(this.dir) * -1;
+      this.y += Math.cos(this.dir) * -1;
+      let target = this.getTile();
+      if (target.elevation <= 1 && Math.random() > this.smartness) {
+        this.x += Math.sin(this.dir) * 1;
+        this.y += Math.cos(this.dir) * 1;
       }
     }
     this.run--;
@@ -88,17 +88,19 @@ class Chicken extends Animal {
       animals.animals.splice(animals.animals.indexOf(this), 1);
       return;
     }
-    var tile = board[Math.floor(this.y / TILE_SIZE)][Math.floor(this.x / TILE_SIZE)];
+    var tile = this.getTile();
     if (tile == null || tile.elevation == Elevation.depths || this.age <= 0) {
       animals.animals.splice(animals.animals.indexOf(this), 1);
     }
-    if (tile.elevation <= 1 && this.run <= 0) {
+    if (tile != null && tile.elevation <= 1 && this.run <= 0) {
+      console.log("Plop!");
+      this.age -= 0.01;
       this.stopped = true;
     }
-    if (this.stopped && this.run <= 0) {
+    if (tile != null && this.stopped && this.run <= 0) {
       this.canTurn = true;
     }
-    if (tile.elevation <= 1) {
+    if (tile != null && tile.elevation <= 1) {
       this.run--;
       this.canTurn = false;
     }
@@ -107,8 +109,12 @@ class Chicken extends Animal {
   getImage() {
     return IMAGES.CHICKEN.getFrameAtIndex(0);
   }
+  getTile() {
+    if (board[Math.floor(this.y / TILE_SIZE)] == null) return null;
+    return board[Math.floor(this.y / TILE_SIZE)][Math.floor(this.x / TILE_SIZE)] || null;
+  }
   static trySpawn() {
-    if (Math.random() > 0.99 && animals.animals.length < 5) {
+    if (Math.random() > 0.99 && animals.animals.length < 10) {
       for (var i = 0; i < 16; i++) {
         var x = Math.random() * BOARD_SIZE_PX;
         var y = Math.random() * BOARD_SIZE_PX;
