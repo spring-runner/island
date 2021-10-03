@@ -22,7 +22,8 @@ function initPlayer() {
         // dig up a wall
         player_dirt += 1;
         square.item = Item.none;
-      } else if (square.elevation > Elevation.beach) {
+      } else if (square.elevation > Elevation.beach &&
+                 square.elevation < Elevation.lava) {
         // dig up the ground
         player_dirt += 1;
         square.elevation -= 1;
