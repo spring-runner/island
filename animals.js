@@ -54,6 +54,7 @@ class Chicken extends Animal {
     this.canTurn = true;
     this.age = Math.random() * 2 + 1;
     this.smartness = Math.random() / 200;
+    this.inTheDepths = false;
   }
   update() {
     if (this.turn > 0 || this.run > 0 && this.canTurn) {
@@ -92,10 +93,14 @@ class Chicken extends Animal {
     if (tile == null || tile.elevation == Elevation.depths || this.age <= 0) {
       animals.animals.splice(animals.animals.indexOf(this), 1);
     }
-    if (tile != null && tile.elevation <= 1 && this.run <= 0) {
+    if (tile != null && tile.elevation <= 1 &&
+      this.run <= 0 && !this.inTheDepths) {
       console.log("Plop!");
       this.age -= 0.01;
       this.stopped = true;
+      this.inTheDepths = true;
+      console.log("Play plop.");
+      audio.plop.play();
     }
     if (tile != null && this.stopped && this.run <= 0) {
       this.canTurn = true;

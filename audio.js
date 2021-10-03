@@ -4,7 +4,8 @@
 var audio = {
   "wave" : "Assets/wave.m4a",
   "gull" : "Assets/gull.m4a",
-  "music" : "Assets/Synthetic.mp3"
+  "music" : "Assets/Synthetic.mp3",
+  "plop" : "Assets/plop-splash.wav"
 };
 
 function initAudio() {
