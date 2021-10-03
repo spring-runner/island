@@ -3,7 +3,7 @@ function initPlayer() {
   player_col = Math.floor(boardSize / 2);
   player_angle = 0;
   player_dirt = 0;
-  player_wood = 1024;
+  player_wood = 0;
 
   document.onkeydown = function(e) {
     var key = event.key;
@@ -27,8 +27,8 @@ function initPlayer() {
         // dig up a wall
         player_dirt += 1;
         square.item = Item.none;
-      } if (square.item == Item.rail) {
-        // dig up a railing
+      } if (square.item == Item.rail || square.item == Item.alfalfa) {
+        // dig up a railing or alfalfa-- get nothing
         square.item = Item.none;
       } else if (square.item == Item.tree) {
         // dig up a tree - get wood when halfway grown
