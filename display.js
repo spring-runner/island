@@ -37,9 +37,9 @@ function updateWorld() {
   const elevationColor = [
     "#000090",
     "#0000a8",
-    "khaki",
-    "#9ACD32",
-    "#9AE032",
+    "lightgreen",
+    "mediumseagreen",
+    "seagreen",
     "gray",
   ];
 

@@ -37,7 +37,7 @@ function makeWorld() {
   }
 
   // Generate the world.  Place some lava.
-  for (var i = 0; i < 5; ++i) {
+  for (var i = 0; i < 6; ++i) {
     var r = 0;
     var c = 0;
     for (var j = 0; j < 10; ++j) {
