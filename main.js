@@ -27,8 +27,7 @@ function animate() {
   window.requestAnimationFrame(animate);
 }
 
-function init() {
-
+function makeWorld() {
   // Create the game board
   for (var row = 0; row < boardSize; row++) {
     board.push([]);
@@ -36,6 +35,46 @@ function init() {
       board[row].push(new Square(row, col));
     }
   }
+
+  // Generate the world.  Place some lava.
+  for (var i = 0; i < 6; ++i) {
+    var r = 0;
+    var c = 0;
+    for (var j = 0; j < 10; ++j) {
+      r += Math.random();
+      c += Math.random();
+    }
+    r = Math.floor(boardSize * r / 10);
+    c = Math.floor(boardSize * c / 10);
+    board[r][c].elevation = Elevation.lava;
+  }
+
+  // Now grow outward from the lava.
+  var smooth = Array(boardSize).fill(0).map(x => Array(boardSize).fill(0));
+  for (var i = 0; i < 5; ++i) {
+    for (var r = 1; r + 1 < boardSize; ++r) {
+      for (var c = 1; c + 1 < boardSize; ++c) {
+        smooth[r][c] = Math.max(
+          board[r][c].elevation,
+          Math.round((
+            board[r - 1][c].elevation +
+            board[r + 1][c].elevation +
+            board[r][c - 1].elevation +
+            board[r][c + 1].elevation +
+            2 * Math.random()) / 4));
+      }
+    }
+
+    for (var r = 1; r + 1 < boardSize; ++r) {
+      for (var c = 1; c + 1 < boardSize; ++c) {
+        board[r][c].elevation = smooth[r][c];
+      }
+    }
+  }
+}
+
+function init() {
+  makeWorld();
 
   // Display board
   updateDisplay();
