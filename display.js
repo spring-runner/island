@@ -85,11 +85,8 @@ function updatePlayer() {
 }
 
 function loadImages() {
-  if (location.href.slice(0, 4) == "file") {
-    console.warn("Cannot load images using the file:/// protocol");
-    return
-  }
-  if ((new URLSearchParams(location.search)).get("block-loader") == "true") {
+  if (location.protocol != "http" && location.protocol != "https") {
+    console.warn("Cannot load images via the " + location.protocol + " protocol. Aborted loadImages");
     return
   }
   ImageLoader.load("Assets/land_and_sea.png", function (img) {
