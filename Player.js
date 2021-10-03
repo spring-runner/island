@@ -65,6 +65,15 @@ function initPlayer() {
         square.item = Item.tree;
         square.age = 0;
       }
+    } else if (key == "r") {
+      // build a railing
+      if (square.item == Item.none &&
+          square.elevation >= Elevation.beach &&
+          square.elevation < Elevation.lava &&
+          player_wood > 0) {
+        square.item = Item.rail;
+        player_wood -= 1;
+      }
     }
   }
 }
