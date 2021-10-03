@@ -5,14 +5,23 @@ const imageLibrary = {
     "height" : 24,
     "num_across" : 2,
     "num_down" : 3,
-    "gap" : 0,  // TODO: add support for gaps in drawSprite()
+    "gap" : 0,  // May omit if zero
  },
+
  "trees" : {
    "file" : "Assets/trees.png",
    "width" : 24,
    "height" : 24,
    "num_across" : 2,
    "num_down" : 2,
+ },
+
+ "player" : {
+   "file" : "Assets/player.png",
+   "width" : 18,
+   "height" : 10,
+   "num_across" : 2,
+   "num_down" : 4,
  },
 };
 
@@ -35,8 +44,8 @@ function drawSprite(context, image_name, frame_num, x, y) {
   var image = imageLibrary[image_name];
   var down_num = Math.floor(frame_num / image.num_across);
   var across_num = frame_num % image.num_across;
-  var sx = image.width * across_num;
-  var sy = image.height * down_num;
+  var sx = image.width * across_num + (image.gap | 0) * Math.max(0, across_num - 1);
+  var sy = image.height * down_num; + (image.gap | 0) * Math.max(0, down_num - 1);
   context.drawImage(image.img,
     sx, sy, image.width, image.height,
     x, y, image.width, image.height);

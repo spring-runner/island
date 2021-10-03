@@ -92,11 +92,10 @@ function updatePlayer() {
   const player_width = 18;
 
   var ctx = gameBoard.getContext("2d");
-  ctx.drawImage(playerImg,
-    0, 0, player_width, player_height,
+
+  drawSprite(ctx, "player", Math.floor((game_time * 10) % 8),
     player_col * TILE_SIZE + (TILE_SIZE - player_width) / 2,
-    player_row * TILE_SIZE + (TILE_SIZE - player_height) / 2,
-    player_width, player_height);
+    player_row * TILE_SIZE + (TILE_SIZE - player_height) / 2);
 
   inventory_dirt_div.innerHTML = player_dirt;
   inventory_wood_div.innerHTML = player_wood;
