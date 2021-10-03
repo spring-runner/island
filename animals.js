@@ -53,6 +53,7 @@ class Chicken extends Animal {
     this.stopped = false;
     this.canTurn = true;
     this.age = Math.random() * 2 + 1;
+    this.smartness = Math.random() / 200;
   }
   update() {
     if (this.turn > 0 || this.run > 0 && this.canTurn) {
@@ -70,7 +71,7 @@ class Chicken extends Animal {
       this.x += Math.sin(this.dir) * -1;
       this.y += Math.cos(this.dir) * -1;
       let target = this.getTile();
-      if (target.elevation <= 1 && Math.random() > 0.05) {
+      if (target.elevation <= 1 && Math.random() > this.smartness) {
         this.x += Math.sin(this.dir) * 1;
         this.y += Math.cos(this.dir) * 1;
       }
@@ -113,7 +114,7 @@ class Chicken extends Animal {
     return board[Math.floor(this.y / TILE_SIZE)][Math.floor(this.x / TILE_SIZE)] || null;
   }
   static trySpawn() {
-    if (Math.random() > 0.999 && animals.animals.length < 10) {
+    if (Math.random() > 0.99 && animals.animals.length < 10) {
       for (var i = 0; i < 16; i++) {
         var x = Math.random() * BOARD_SIZE_PX;
         var y = Math.random() * BOARD_SIZE_PX;
