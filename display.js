@@ -103,7 +103,8 @@ function updateWorld() {
   var middle = TILE_SIZE * boardSize / 2;
   for (var i = 0; i < wave_list.length; ++i) {
     var wave = wave_list[i];
-    drawCenteredSprite(ctx, "wave", 0,
+    drawCenteredSprite(ctx, "wave",
+        Math.floor((game_time * 2 + wave.time_offset) % 3),
         middle + wave.x, middle - wave.y, wind.theta - Math.PI / 2);
   }
 
