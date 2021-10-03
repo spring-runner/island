@@ -32,20 +32,26 @@ function simulateSquares(dt) {
     for (var col = 0; col < boardSize; ++col) {
       var square = board[row][col];
 
-      if (square.item == Item.alfalfa) {
+      if (square.item != Item.None) {
         square.age += dt;
+      }
+
+      if (square.item == Item.alfalfa) {
         if (square.age > 60) {
           square.item = Item.none;
           // Alfalfa... eventually dies?
         }
       } else if (square.item == Item.tree) {
-        square.age += dt;
         if (square.age > 60) {
           square.item = Item.none;
           if (square.elevation + 1 < Elevation.lava) {
             square.elevation += 1;
             player_wood += 1;
           }
+        }
+      } else if (square.item == Item.egg) {
+        if (square.age > 90) {
+          square.item = Item.none;
         }
       }
 

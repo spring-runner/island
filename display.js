@@ -79,6 +79,8 @@ function updateWorld() {
           ((col < boardSize && board[row][col + 1].item == Item.rail)?2:0) +
           ((row < boardSize && board[row + 1][col].item == Item.rail)?4:0);
         drawSprite(ctx, "rail", frameNum, px, py);
+      } else if (square.item == Item.egg) {
+        drawImage(ctx, "egg", px, py);
       }
     }
   }
