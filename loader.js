@@ -1,7 +1,7 @@
 var ImageLoader = {
   load: function load(path, callback = loader => null) {
     // Create an Image and set it's source path to the argument
-    console.log("Loading image '" + path + "'");
+    console.log("Loading image: " + path);
     return new ImageLoader.Image(path, callback);
   },
   Image: class {
