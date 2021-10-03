@@ -10,18 +10,29 @@
 
 .description {
   font-family: "Roboto";
+  text-align: left;
+  margin-right: 30px;
 }
 
 #page {
   width:770px;
 }
 #help_div{
-  border-style: dashed;
+  text-align:center;
+  box-shadow:0px 0px 5px gray;
 }
 
 #inventory{
   margin-bottom: 20px;
+  margin-top: 10px;
   text-align: center;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  width:768px;
+}
+
+canvas {
+  border-radius: 5px;
 }
 
 .inventoryKey {
@@ -38,4 +49,6 @@
   color:white;
   margin-right: 20px;
   font-weight: bold;
+  border-radius: 5px;
+  padding:5px;
 }
