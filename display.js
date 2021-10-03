@@ -112,8 +112,8 @@ function loadImages() {
     return
   }
   ImageLoader.load("Assets/trees.png", function (img) {
-    IMAGES.TREES = img.spritesheet({rows:2, cols:2, gap:0, border:0});
-  });
+    IMAGES.TREES = img.spritesheet({rows:2, cols:2, gap:0, border:0});t
+t  });
 }
 
 loadImages();
