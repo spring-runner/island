@@ -19,13 +19,13 @@ let playerIsLoaded;
 var worldImg = new Image();
 worldImg.src = "Assets/land_and_sea.png";
 worldImg.onload = function() {
-  updateDisplay();
+  console.log("World images loaded.");
 }
 
 var playerImg = new Image();
 playerImg.src = "Assets/Player.png";
 playerImg.onload = function() {
-  console.log("we have loaded the player once and never again");
+  console.log("Player image loaded.");
 }
 
 function updateDisplay() {
@@ -51,14 +51,21 @@ function updateWorld() {
       var py = row * TILE_SIZE;
       if (square.item == Item.wall) {
         ctx.fillStyle = "saddlebrown";
+        ctx.fillRect(px, py, TILE_SIZE, TILE_SIZE);
       } else if (square.item == Item.alfalfa) {
         ctx.fillStyle = "yellow";
+        ctx.fillRect(px, py, TILE_SIZE, TILE_SIZE);
       } else if (square.item == Item.tree) {
-        ctx.fillStyle = "darkgreen";
+
+        ctx.fillStyle = elevationColor[square.elevation];
+        ctx.fillRect(px, py, TILE_SIZE, TILE_SIZE);
+
+        ctx.drawImage(IMAGES.TREES.getFrameAtIndex(Math.min(Math.floor(square.age / 15), 3)), px, py, TILE_SIZE, TILE_SIZE);
+
       } else {
         ctx.fillStyle = elevationColor[square.elevation];
+        ctx.fillRect(px, py, TILE_SIZE, TILE_SIZE);
       }
-      ctx.fillRect(px, py, TILE_SIZE, TILE_SIZE);
     }
   }
 
@@ -104,8 +111,8 @@ function loadImages() {
     console.warn("Cannot load images via the " + location.protocol + " protocol. Aborted loadImages");
     return
   }
-  ImageLoader.load("Assets/land_and_sea.png", function (img) {
-    IMAGES.GROUND = img.spritesheet({rows:2, cols:4, gap:1, border:1});
+  ImageLoader.load("Assets/trees.png", function (img) {
+    IMAGES.TREES = img.spritesheet({rows:2, cols:2, gap:0, border:0});
   });
 }
 
