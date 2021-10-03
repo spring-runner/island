@@ -93,6 +93,7 @@ function init() {
   makeWorld();
 
   initAudio();
+  initImlib();
   initPhysics();
   initPlayer();
 
