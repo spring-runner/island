@@ -85,7 +85,7 @@ function updatePlayer() {
 }
 
 function loadImages() {
-  if (location.protocol != "http" && location.protocol != "https") {
+  if (location.protocol != "http:" && location.protocol != "https:") {
     console.warn("Cannot load images via the " + location.protocol + " protocol. Aborted loadImages");
     return
   }
