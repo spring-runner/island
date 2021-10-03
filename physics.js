@@ -4,7 +4,13 @@
 //
 
 function lump(x) {
-  return (x - 1) ** 2 * (x + 1) ** 2;
+  const lump_coeff = Math.log(1/2) / Math.log(3/4);
+
+  if (Math.abs(x) > 1) {
+    return 0.0;
+  } else {
+    return ((1 - x) * (1 + x)) ** lump_coeff;
+  }
 }
 
 function Curve() {
@@ -40,11 +46,32 @@ Curve.prototype.val = function(t) {
     }
   }
 
+  // console.log(t, this.t_prev, this.t_near, this.t_next);
+
   var w0 = lump(t - this.t_prev);
   var w1 = lump(t - this.t_near);
   var w2 = lump(t - this.t_next);
 
   return (w0 * this.v_prev + w1 * this.v_near + w2 * this.v_next) / (w0 + w1 + w2);
+}
+
+function curveTest() {
+  var curve = new Curve();
+  var canvas = document.createElement("canvas");
+  canvas.width = 1000;
+  canvas.height = 100;
+  canvas.style.border = "1px solid black";
+  document.body.appendChild(canvas);
+  var context = canvas.getContext("2d");
+  var t_start = 5.0;
+  var t_end = 50.0;
+  context.beginPath();
+  context.moveTo(0, 0);
+  for (var i = 0; i < canvas.width; ++i) {
+    var t = t_start + (t_end - t_start) * i / canvas.width;
+    context.lineTo(i, 100 * curve.val(t));
+  }
+  context.stroke();
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -59,7 +86,7 @@ function Wind() {
 }
 
 Wind.prototype.speed = function(t) {
-  return (1 * this.wind_speed_curve0.val(t * 0.0382) +
+  return (4 * this.wind_speed_curve0.val(t * 0.0982) +
           4 * this.wind_speed_curve1.val(t * 0.00273) ** 4);
 }
 
@@ -72,7 +99,7 @@ Wind.prototype.direction = function(t) {
 //  Wave simulation
 //
 
-const wave_radius = 250;
+const wave_radius = 750;
 
 function Wave() {
   this.reset();
