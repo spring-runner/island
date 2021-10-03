@@ -2,7 +2,7 @@ function initPlayer() {
   player_row = Math.floor(boardSize / 2);
   player_col = Math.floor(boardSize / 2);
   player_dirt = 0;
-  player_wood = 0;
+  player_wood = 1024;
 
   document.onkeydown = function(e) {
     var key = event.key;
@@ -39,7 +39,9 @@ function initPlayer() {
       }
     } else if (key == "f") {
       // fill the ground with some dirt
-      if (player_dirt > 0 && square.elevation <= Elevation.plains) {
+      if (player_dirt > 0 &&
+          square.elevation >= Elevation.shallows &&
+          square.elevation <= Elevation.plains) {
         player_dirt -= 1;
         square.elevation += 1;
       }

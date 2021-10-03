@@ -23,6 +23,14 @@ const imageLibrary = {
    "num_across" : 2,
    "num_down" : 4,
  },
+
+ "fence" : {
+   "file" : "Assets/Fence.png",
+   "width" : 24,
+   "height" : 24,
+   "num_across" : 4,
+   "num_down" : 4,
+ },
 };
 
 function initImlib() {
