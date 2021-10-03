@@ -54,25 +54,18 @@ function updateWorld() {
     }
   }
 
-  // Display wind indicator
-  ctx.strokeStyle = "red";
-  ctx.beginPath();
-  ctx.moveTo(50, 50);
-  var speed = wind.speed(game_time);
-  var direction = wind.direction(game_time);
-  ctx.lineTo(50 + 10 * speed * Math.cos(direction),
-             50 - 10 * speed * Math.sin(direction));
-  ctx.stroke();
-
   // Display waves
-  ctx.strokeStyle = "black";
   var middle = board.length * TILE_SIZE / 2;
-  for (var i = 0; i < waves.waves.length; ++i) {
-    var wave = waves.waves[i];
+  var side_x = wind.uy * TILE_SIZE / 2;
+  var side_y = - wind.ux * TILE_SIZE / 2;
+  for (var i = 0; i < wave_list.length; ++i) {
+    var wave = wave_list[i];
     var px = middle + wave.x;
     var py = middle - wave.y;
+    ctx.strokeStyle = "white";
     ctx.beginPath();
-    ctx.arc(px, py, 10, 0, 2 * Math.PI);
+    ctx.moveTo(px - side_x, py + side_y);
+    ctx.lineTo(px + side_x, py - side_y);
     ctx.stroke();
   }
 }

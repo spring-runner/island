@@ -13,85 +13,59 @@ function lump(x) {
   }
 }
 
-function Curve() {
-  this.t_prev = 0;
-  this.t_near = 1;
-  this.t_next = 2;
-
-  this.v_prev = Math.random();
-  this.v_near = Math.random();
-  this.v_next = Math.random();
-}
-
-Curve.prototype.val = function(t) {
-  var t_near = Math.round(t);
-
-  if (t_near > this.t_near + 3) {
-    // Complete reset
-    this.t_prev = t_near - 1;
-    this.v_prev = Math.random();
-    this.t_near = t_near;
-    this.v_near = Math.random();
-    this.t_next = t_near + 1;
-    this.v_next = Math.random();
-  } else {
-    // Shift forward
-    while (t_near > this.t_near) {
-      this.t_prev = this.t_near;
-      this.v_prev = this.v_near;
-      this.t_near = this.t_next;
-      this.v_near = this.v_next;
-      this.t_next = this.t_near + 1;
-      this.v_next = Math.random();
-    }
-  }
-
-  // console.log(t, this.t_prev, this.t_near, this.t_next);
-
-  var w0 = lump(t - this.t_prev);
-  var w1 = lump(t - this.t_near);
-  var w2 = lump(t - this.t_next);
-
-  return (w0 * this.v_prev + w1 * this.v_near + w2 * this.v_next) / (w0 + w1 + w2);
-}
-
-function curveTest() {
-  var curve = new Curve();
-  var canvas = document.createElement("canvas");
-  canvas.width = 1000;
-  canvas.height = 100;
-  canvas.style.border = "1px solid black";
-  document.body.appendChild(canvas);
-  var context = canvas.getContext("2d");
-  var t_start = 5.0;
-  var t_end = 50.0;
-  context.beginPath();
-  context.moveTo(0, 0);
-  for (var i = 0; i < canvas.width; ++i) {
-    var t = t_start + (t_end - t_start) * i / canvas.width;
-    context.lineTo(i, 100 * curve.val(t));
-  }
-  context.stroke();
-}
-
 ///////////////////////////////////////////////////////////////////////////////
 //
 //  Wind speed and direction
 //
 
 function Wind() {
-  this.wind_speed_curve0 = new Curve();
-  this.wind_speed_curve1 = new Curve();
-  this.wind_direction_curve = new Curve();
+  this.mid_time = -100;  // Time associated with the middle entry in lists
+  this.vx_list = [];  // velocity at mid_time - 1, mid_time, mid_time + 1
+  this.vy_list = [];
+  this.vx = 0;
+  this.vy = 0;
+  this.ux = 0;
+  this.uy = 0;
+  this.theta = 0;
+  this.speed = 0;
+  this.shift_time = 10.0;
+  this.typical_velocity = 50;
 }
 
-Wind.prototype.speed = function(t) {
-  return (3 * this.wind_speed_curve0.val(t * 0.0982) +
-          3 * this.wind_speed_curve1.val(t * 0.00273) ** 4);
-}
+Wind.prototype.update = function(t) {
+  t /= this.shift_time;
 
-Wind.prototype.direction = function(t) {
-  return 10 * this.wind_direction_curve.val(t * 0.0161);
+  var round_time = Math.round(t);
+
+  this.mid_time = Math.max(this.mid_time, round_time - 3);
+
+  while (round_time > this.mid_time) {
+    var u = 1 - Math.random();  // never 0
+    var v = 1 - Math.random();
+    var n1 = Math.sqrt(-2.0 * Math.log(u)) * Math.sin(2.0 * Math.PI * v);
+    var n2 = Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);
+    this.vx_list.push(n1 * this.typical_velocity);
+    this.vy_list.push(n2 * this.typical_velocity);
+
+    if (this.vx_list.length > 3) {
+      this.vx_list.shift();
+      this.vy_list.shift();
+    }
+
+    this.mid_time += 1;
+  }
+
+  var w0 = lump(t - (this.mid_time - 1));
+  var w1 = lump(t - this.mid_time);
+  var w2 = lump(t - (this.mid_time + 1));
+  var w = w0 + w1 + w2;
+
+  this.vx = (w0 * this.vx_list[0] + w1 * this.vx_list[1] + w2 * this.vx_list[2]) / w;
+  this.vy = (w0 * this.vy_list[0] + w1 * this.vy_list[1] + w2 * this.vy_list[2]) / w;
+  this.speed = Math.hypot(this.vx, this.vy);
+  this.theta = Math.atan2(this.y, this.x);
+  this.ux = this.vx / this.speed;
+  this.uy = this.vy / this.speed;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -99,14 +73,17 @@ Wind.prototype.direction = function(t) {
 //  Wave simulation
 //
 
-const wave_radius = 750;
+const wave_radius = 600;
 
-function Wave() {
+function Wave(wind) {
+  this.wind = wind;
+  this.prev_square = null;
+  this.square = null;
   this.reset();
 }
 
 Wave.prototype.reset = function() {
-  // Restart the wave at a random point on a wide circle around the world.
+  // Move the position to a random point on the outer circle.
   var angle = 2 * Math.PI * Math.random();
   this.x = Math.cos(angle) * wave_radius;
   this.y = Math.sin(angle) * wave_radius;
@@ -114,18 +91,19 @@ Wave.prototype.reset = function() {
   this.square = null;
 }
 
-Wave.prototype.simulate = function(dt, speed, direction) {
-  this.x += speed * Math.cos(direction);
-  this.y += speed * Math.sin(direction);
+Wave.prototype.simulate = function(dt) {
+  this.x += dt * this.wind.vx;
+  this.y += dt * this.wind.vy;
 
   // If the wave was blown outside the simulation circle, reset it.
-  var radius = Math.hypot(this.x, this.y);
-  if (radius > wave_radius) {
+  if (Math.hypot(this.x, this.y) > wave_radius) {
     this.reset();
   }
 
-  // Figure out what square the wave is in now.
+  // Remember where the wave was previously.
   this.prev_square = this.square;
+
+  // Figure out what square the wave is on now.
   var col = Math.floor(boardSize / 2 + this.x / TILE_SIZE);
   var row = Math.floor(boardSize / 2 - this.y / TILE_SIZE);
   if (row >= 0 && row < boardSize && col >= 0 && col < boardSize) {
@@ -135,18 +113,61 @@ Wave.prototype.simulate = function(dt, speed, direction) {
   }
 }
 
-function Waves(wind, num_waves) {
-  this.wind = wind;
-  this.waves = [];
-  for (var i = 0; i < num_waves; ++i) {
-    this.waves.push(new Wave());
+///////////////////////////////////////////////////////////////////////////////
+//
+//  Erosion simulation
+//
+
+function erode(lo, hi) {
+  if (hi.elevation == Elevation.lava) {
+    // Lava does not erode; rather, the water drops sand, raising the bottom.
+    lo.elevation += 1;
+  } else if (hi.elevation >= lo.elevation + 2) {
+    // There is a big discrepancy between water and land, so some falls in.
+    lo.elevation += 1;
+    hi.elevation -= 1;
+  } else {
+    // There is a small discrepancy between water and land.  Usually, the
+    // land turns to water.  But sometimes the water turns to land.
+    if (Math.random() > 0.25) {
+      hi.elevation -= 1;
+    } else {
+      lo.elevation += 1;
+    }
   }
 }
 
-Waves.prototype.simulate = function(dt) {
-  var speed = this.wind.speed(game_time);
-  var direction = this.wind.direction(game_time);
-  for (var i = 0; i < this.waves.length; ++i) {
-    this.waves[i].simulate(dt, speed, direction);
+///////////////////////////////////////////////////////////////////////////////
+//
+//  Overall simulation
+//
+
+function initPhysics() {
+  wind = new Wind();
+  wave_list = [];
+  for (var i = 0; i < 20; ++i) {
+    wave_list.push(new Wave(wind));
+  }
+}
+
+function simulatePhysics(dt) {
+  wind.update(game_time);
+
+  for (var i = 0; i < this.wave_list.length; ++i) {
+    var wave = wave_list[i];
+
+    // Simulate the wave.
+    wave.simulate(dt);
+
+    if (wave.prev_square && wave.square) {
+      // The wave hit land, so we're going to reset it.
+      if (wave.square.elevation >= Elevation.beach) {
+        // If the wave came from the water, then cause erosion.
+        if (wave.prev_square.elevation <= Elevation.shallows) {
+          erode(wave.prev_square, wave.square);
+        }
+        wave.reset();
+      }
+    }
   }
 }
