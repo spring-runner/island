@@ -1,10 +1,12 @@
 function initPlayer() {
   player_row = Math.floor(boardSize / 2);
   player_col = Math.floor(boardSize / 2);
+  player_dirt = 0;
 
   document.onkeydown = function(e) {
     var key = event.key;
-    
+    var square = board[player_row][player_col];
+
     if (key == "ArrowDown") {
       player_row = Math.min(player_row + 1, boardSize - 1);
     } else if (key == "ArrowUp") {
@@ -13,6 +15,39 @@ function initPlayer() {
       player_col = Math.max(player_col - 1, 0);
     } else if (key == "ArrowRight") {
       player_col = Math.min(player_col + 1, boardSize - 1);
+    } else if (key == "d") {
+      // dig
+      if (square.item == Item.wall) {
+        // dig up a wall
+        player_dirt += 1;
+        square.item = Item.non;
+      } else if (square.elevation > Elevation.beach) {
+        // dig up the ground
+        player_dirt += 1;
+        square.elevation -= 1;
+      }
+    } else if (key == "f") {
+      // fill the ground with some dirt
+      if (player_dirt > 0 && square.elevation <= Elevation.plains) {
+        player_dirt -= 1;
+        square.elevation += 1;
+      }
+    } else if (key == "a") {
+      // plant alfalfa
+      if (square.elevation >= Elevation.beach &&
+          square.elevation < Elevation.lava) {
+        square.item = Item.alfalfa;
+        square.age = 0;
+      }
+    } else if (key == "w") {
+      // build a wall
+      if (player_dirt > 0 &&
+          square.item != Item.wall &&
+          square.elevation >= Elevation.beach &&
+          square.elevation < Elevation.lava) {
+        square.item = Item.wall;
+        player_dirt -= 1;
+      }
     }
   }
 }

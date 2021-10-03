@@ -28,8 +28,8 @@ function Wind() {
   this.uy = 0;
   this.theta = 0;
   this.speed = 0;
-  this.shift_time = 10.0;
-  this.typical_velocity = 50;
+  this.shift_time = 30.0;
+  this.typical_velocity = 20;
 }
 
 Wind.prototype.update = function(t) {
@@ -119,21 +119,25 @@ Wave.prototype.simulate = function(dt) {
 //
 
 function erode(lo, hi) {
+  var stability = 0.1;  // chance land defeats water
   if (hi.elevation == Elevation.lava) {
-    // Lava does not erode; rather, the water drops sand, raising the bottom.
+    stability = 1.0;
+  } else if (hi.item == Item.alfalfa) {
+    stability = 0.2;
+  } else if (hi.item == Item.wall) {
+    stability = 0.9;
+  }
+
+  if (Math.random() < stability) {
+    // land wins!
     lo.elevation += 1;
-  } else if (hi.elevation >= lo.elevation + 2) {
-    // There is a big discrepancy between water and land, so some falls in.
-    lo.elevation += 1;
-    hi.elevation -= 1;
   } else {
-    // There is a small discrepancy between water and land.  Usually, the
-    // land turns to water.  But sometimes the water turns to land.
-    if (Math.random() > 0.25) {
-      hi.elevation -= 1;
-    } else {
-      lo.elevation += 1;
+    // water wins...
+    hi.item = Item.none;  // destroy any item
+    if (hi.elevation >= lo.elevation + 2) {
+      lo.elevation += 1;  // some land falls into the water
     }
+    hi.elevation -= 1;
   }
 }
 
@@ -159,15 +163,13 @@ function simulatePhysics(dt) {
     // Simulate the wave.
     wave.simulate(dt);
 
-    if (wave.prev_square && wave.square) {
-      // The wave hit land, so we're going to reset it.
-      if (wave.square.elevation >= Elevation.beach) {
-        // If the wave came from the water, then cause erosion.
-        if (wave.prev_square.elevation <= Elevation.shallows) {
-          erode(wave.prev_square, wave.square);
-        }
-        wave.reset();
+    if (wave.prev_square && wave.square &&
+        wave.square.elevation >= Elevation.beach) {
+      // If the wave came from the water, then cause erosion.
+      if (wave.prev_square.elevation <= Elevation.shallows) {
+        erode(wave.prev_square, wave.square);
       }
+      wave.reset();
     }
   }
 }

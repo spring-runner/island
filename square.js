@@ -7,8 +7,34 @@ const Elevation = {
   "lava" : 5,
 };
 
+const Item = {
+  "none" : 0,
+  "alfalfa" : 1,
+  "wall" : 2,
+};
+
 function Square(row, col) {
   this.row = row;
   this.col = col;
   this.elevation = Elevation.depths;
+  this.item = Item.none;
+  this.age = 0;
+}
+
+function simulateSquares(dt) {
+  for (var row = 0; row < boardSize; ++row) {
+    for (var col = 0; col < boardSize; ++col) {
+      var square = board[row][col];
+
+      if (square.item == Item.alfalfa) {
+        square.age += dt;
+        if (square.age > 60) {
+          square.item = Item.none;
+          if (square.elevation + 1 < Elevation.lava) {
+            square.elevation += 1;
+          }
+        }
+      }
+    }
+  }
 }

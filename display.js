@@ -49,7 +49,13 @@ function updateWorld() {
       var square = board[row][col];
       var px = col * TILE_SIZE;
       var py = row * TILE_SIZE;
-      ctx.fillStyle = elevationColor[square.elevation];
+      if (square.item == Item.wall) {
+        ctx.fillStyle = "saddlebrown";
+      } else if (square.item == Item.alfalfa) {
+        ctx.fillStyle = "yellow";
+      } else {
+        ctx.fillStyle = elevationColor[square.elevation];
+      }
       ctx.fillRect(px, py, TILE_SIZE, TILE_SIZE);
     }
   }
@@ -80,6 +86,8 @@ function updatePlayer() {
     player_col * TILE_SIZE + (TILE_SIZE - player_width) / 2,
     player_row * TILE_SIZE + (TILE_SIZE - player_height) / 2,
     player_width, player_height);
+
+  inventory_div.innerHTML = "dirt = " + player_dirt;
 
   /*
   var canvas = document.getElementById('gameBoard');

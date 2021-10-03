@@ -11,13 +11,16 @@ function animate() {
   var dt = Math.min(0.1, now - game_time);
   game_time = now;
 
-  // Simulate the world
+  // Simulate wave physics
   simulatePhysics(dt);
+
+  // Simulate squares
+  simulateSquares(dt);
 
   // Update the display
   updateDisplay();
 
-  // movePlayer()
+  // movePlayer() - commented out for now
 
   // Continue the animation loop
   window.requestAnimationFrame(animate);
