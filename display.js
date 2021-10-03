@@ -77,42 +77,12 @@ function updateWorld() {
   }
 }
 
-
-
 function updatePlayer() {
 
   var canvas = document.getElementById('gameBoard');
   var ctx = canvas.getContext('2d');
   ctx.drawImage(playerImg, 0, 0, PLAYER_WIDTH, PLAYER_HEIGHT,
   playerX, playerY, PLAYER_WIDTH, PLAYER_HEIGHT)
-}
-
-function getWorldTileForDepth(depth) {
-  // The world tile file is layed out with 2 rows of 4 tiles.
-  // The tile depths are:
-  // +2 +1 0 -1
-  // -2 -3 -4 -5
-  // where 2 to 0 are land, -1 to -4 are partially sunken Island
-  // and -5 is sea.
-
-  // Assume we're in row 1.
-  var sy = WORLD_IMAGE_BORDER;
-
-  // Figure out if we are in 2.
-  if (depth < -1) {
-    sy = WORLD_IMAGE_BORDER + WORLD_IMAGE_TILE_SIZE + WORLD_IMAGE_PADDING;
-  }
-
-  // Now get the x offset.
-  if (depth < -1) {
-    // If we're in the second row, just pretend it's the first
-    // row to keep the logic simpler.
-    depth = depth + 4;
-  }
-  var imageOffset = 2 - depth;
-  var sx = WORLD_IMAGE_BORDER +
-    imageOffset * (WORLD_IMAGE_TILE_SIZE + WORLD_IMAGE_PADDING);
-  return [sx, sy, WORLD_IMAGE_TILE_SIZE, WORLD_IMAGE_TILE_SIZE];
 }
 
 function loadImages() {
