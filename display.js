@@ -53,6 +53,8 @@ function updateWorld() {
         ctx.fillStyle = "saddlebrown";
       } else if (square.item == Item.alfalfa) {
         ctx.fillStyle = "yellow";
+      } else if (square.item == Item.tree) {
+        ctx.fillStyle = "darkgreen";
       } else {
         ctx.fillStyle = elevationColor[square.elevation];
       }
@@ -87,7 +89,7 @@ function updatePlayer() {
     player_row * TILE_SIZE + (TILE_SIZE - player_height) / 2,
     player_width, player_height);
 
-  inventory_div.innerHTML = "dirt = " + player_dirt + " landmass = " + landmass;
+  inventory_div.innerHTML = "dirt = " + player_dirt + " wood = " + player_wood + " landmass = " + landmass;
 
   /*
   var canvas = document.getElementById('gameBoard');
