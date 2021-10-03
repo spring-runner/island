@@ -86,12 +86,12 @@ function Wind() {
 }
 
 Wind.prototype.speed = function(t) {
-  return (4 * this.wind_speed_curve0.val(t * 0.0982) +
-          4 * this.wind_speed_curve1.val(t * 0.00273) ** 4);
+  return (3 * this.wind_speed_curve0.val(t * 0.0982) +
+          3 * this.wind_speed_curve1.val(t * 0.00273) ** 4);
 }
 
 Wind.prototype.direction = function(t) {
-  return 10 * this.wind_direction_curve.val(t * 0.0561);
+  return 10 * this.wind_direction_curve.val(t * 0.0161);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -110,16 +110,28 @@ Wave.prototype.reset = function() {
   var angle = 2 * Math.PI * Math.random();
   this.x = Math.cos(angle) * wave_radius;
   this.y = Math.sin(angle) * wave_radius;
+  this.prev_square = null;
+  this.square = null;
 }
 
 Wave.prototype.simulate = function(dt, speed, direction) {
   this.x += speed * Math.cos(direction);
   this.y += speed * Math.sin(direction);
 
-  // If the wave was blow outside the simulation circle, reset it.
+  // If the wave was blown outside the simulation circle, reset it.
   var radius = Math.hypot(this.x, this.y);
   if (radius > wave_radius) {
     this.reset();
+  }
+
+  // Figure out what square the wave is in now.
+  this.prev_square = this.square;
+  var col = Math.floor(boardSize / 2 + this.x / TILE_SIZE);
+  var row = Math.floor(boardSize / 2 - this.y / TILE_SIZE);
+  if (row >= 0 && row < boardSize && col >= 0 && col < boardSize) {
+    this.square = board[row][col];
+  } else {
+    this.square = null;
   }
 }
 
