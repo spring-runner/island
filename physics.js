@@ -145,7 +145,7 @@ function erode(lo, hi) {
 function initPhysics() {
   wind = new Wind();
   wave_list = [];
-  for (var i = 0; i < 20; ++i) {
+  for (var i = 0; i < 50; ++i) {
     wave_list.push(new Wave(wind));
   }
 }

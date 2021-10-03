@@ -17,7 +17,8 @@ function animate() {
   // Update the display
   updateDisplay();
 
-  movePlayer()
+  // movePlayer()
+
   // Continue the animation loop
   window.requestAnimationFrame(animate);
 }
@@ -72,6 +73,7 @@ function init() {
   makeWorld();
 
   initPhysics();
+  initPlayer();
 
   // Display board
   updateDisplay();
