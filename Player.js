@@ -22,6 +22,9 @@ function initPlayer() {
         // dig up a wall
         player_dirt += 1;
         square.item = Item.none;
+      } if (square.item == Item.rail) {
+        // dig up a railing
+        square.item = Item.none;
       } else if (square.item == Item.tree) {
         // dig up a tree - get wood when halfway grown
         if (square.age > 30) {
