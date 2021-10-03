@@ -3,14 +3,34 @@
   <head>
     <meta charset="utf-8">
     <title>Island</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+    <link rel="stylesheet" href="style.css">
   </head>
   <body onload="init()">
     <canvas id="gameBoard" width="768" height="768"></canvas>
-    <div id="inventory_div"></div>
+    <div class="" id="inventory">
+      <div class="inventoryKey">dirt</div>
+      <div class="inventoryValue" id="inventory_dirt_div">0</div>
+      <div class="inventoryKey">wood</div>
+      <div class="inventoryValue" id="inventory_wood_div">0</div>
+      <div class="inventoryKey">landmass</div>
+      <div class="inventoryValue" id="inventory_landmass_div">0</div>
+    </div>
+    <div id="inventory_div">
+    </div>
     <div class="" id="help_div">
-      <p>Commands:</p>
-      <p>arrow keys: move, d: dig, w: build dirt wall, a: plant alphapha,
-        f: fill with dirt </p>
+      <table>
+        <tr>
+          <td><div class="key"> arrows</td> <td class="description">Move</td>
+          <td><div class="key">d</td> <td class="description">Dig</td>
+          <td><div class="key">w</td> <td class="description">Build walls</td>
+        </tr>
+        <tr>
+          <td><div class="key">f</td> <td class="description">Fill water with dirt</td>
+          <td><div class="key"> a </td> <td class="description">Plant alphapha</td>
+          <td><div class="key">t</td> <td class="description">Plant trees</td>
+        </tr>
+      </table>
     </div>
     <script src="loader.js" charset="utf-8"></script>
     <script type="text/javascript" src="audio.js"></script>

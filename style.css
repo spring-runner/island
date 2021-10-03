@@ -1,0 +1,38 @@
+.key {
+  display: inline-block;
+  background-color: lightblue;
+  font-family: Courier New;
+  width: 80px;
+  text-align: center;
+  border-radius: 10px;
+  font-weight: bold;
+}
+
+.description {
+  font-family: "Roboto";
+}
+
+#help_div{
+  border-style: dashed;
+}
+
+#inventory{
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.inventoryKey {
+  font-family: "Roboto";
+  display: inline-block;
+  font-weight: bold;
+}
+
+.inventoryValue {
+  font-family: Courier New;
+  display: inline-block;
+  width: 45px;
+  background-color: mediumseagreen;
+  color:white;
+  margin-right: 20px;
+  font-weight: bold;
+}
