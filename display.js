@@ -56,12 +56,12 @@ function updateWorld() {
         ctx.fillStyle = "yellow";
         ctx.fillRect(px, py, TILE_SIZE, TILE_SIZE);
       } else if (square.item == Item.tree) {
-
         ctx.fillStyle = elevationColor[square.elevation];
         ctx.fillRect(px, py, TILE_SIZE, TILE_SIZE);
-
         ctx.drawImage(IMAGES.TREES.getFrameAtIndex(Math.min(Math.floor(square.age / 15), 3)), px, py, TILE_SIZE, TILE_SIZE);
-
+      } else if (square.item == Item.rail) {
+        ctx.fillStyle = "pink";
+        ctx.fillRect(px, py, TILE_SIZE, TILE_SIZE);
       } else {
         ctx.fillStyle = elevationColor[square.elevation];
         ctx.fillRect(px, py, TILE_SIZE, TILE_SIZE);

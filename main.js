@@ -20,8 +20,6 @@ function animate() {
   // Update the display
   updateDisplay();
 
-  // movePlayer() - commented out for now
-
   // Continue the animation loop
   window.requestAnimationFrame(animate);
 }
@@ -86,6 +84,7 @@ ImageLoader.load("Assets/trees.png", function (img) {
 function init() {
   makeWorld();
 
+  initAudio();
   initPhysics();
   initPlayer();
 
