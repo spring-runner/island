@@ -6,7 +6,23 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
     <link rel="stylesheet" href="style.css">
   </head>
-  <body onload="preload()">
+
+  <body onload="preload()" style="position:relative;">
+
+    <div id="splash" onclick="this.style.display = 'none';">
+      <h1>Eroding Chicken</h1>
+      <p>You are a common chicken farmer in an uncommon place:  on an island
+      eroding away into the sea.</p>
+
+      <p>Build dirt walls to stave off the waves while
+      raising alfalfa to feed your chickens.</p>
+
+      <p>Beware!  Chickens aren't too bright and the sea is cold.  You might
+      consider railings...</p>
+
+      <p>(Click to begin.)</p>
+    </div>
+
     <div id="page">
     <canvas id="gameBoard" width="768" height="768"></canvas>
     <div class="" id="inventory">
@@ -19,6 +35,7 @@
     </div>
     <div id="inventory_div">
     </div>
+
     <div class="" id="help_div">
       <table style="display:inline-block;">
         <tr>
