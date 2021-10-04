@@ -16,6 +16,12 @@
   color: #222322;
 }
 
+.instructions {
+  font-family: "Roboto";
+  text-align: left;
+  color: #222322;
+}
+
 #page {
   width:770px;
 }
