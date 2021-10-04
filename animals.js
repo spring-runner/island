@@ -63,7 +63,7 @@ class Chicken extends Animal {
     this.turn = 0;
     this.stopped = false;
     this.canTurn = true;
-    this.age = Math.random() * 2 + 1;
+    this.age = Math.floor(Math.random() * 10000);
     this.smartness = Math.random() / 200;
     this.inTheDepths = false;
     this.spawn = 0;
@@ -71,7 +71,6 @@ class Chicken extends Animal {
   }
   update() {
     // dirv = rotational velocity?
-
     if (this.turn > 0 || this.run > 0 && this.canTurn) {
       if (this.turn > 0) {
         this.dirv += Math.random() * 0.05 - 0.0025;
@@ -94,7 +93,7 @@ class Chicken extends Animal {
     }
     this.run--;
     if (Math.random() > 0.995 && !this.stopped) {
-      this.run = Math.random() * 100 * this.age;
+      this.run = Math.random() * this.age / 100;
     }
     this.turn--;
     if (Math.random() > 0.99 && this.turn < -5 && this.canTurn) {
@@ -113,7 +112,7 @@ class Chicken extends Animal {
       // Check if the chicken has fallen into the depths.
       if (tile != null && tile.elevation == Elevation.depths &&
         this.run <= 0 && !this.inTheDepths) {
-        this.age -= 0.01;
+        this.age == -1;
         this.stopped = true;
         this.inTheDepths = true;
         audio.plop.play();
@@ -145,7 +144,7 @@ class Chicken extends Animal {
         tile.age = 0;
       }
     }
-    this.age -= 0.001;
+    this.age--;
     this.spawn--;
   }
   getImage() {
