@@ -97,6 +97,7 @@ function updatePlayer() {
   inventory_dirt_div.innerHTML = player_dirt;
   inventory_wood_div.innerHTML = player_wood;
   inventory_landmass_div.innerHTML = landmass;
+  score_div.innerHTML = animals.animals.length;
 }
 
 
