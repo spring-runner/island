@@ -17,11 +17,11 @@ const imageLibrary = {
  },
 
  "player" : {
-   "file" : "Assets/player.png",
-   "width" : 18,
-   "height" : 10,
-   "num_across" : 2,
-   "num_down" : 4,
+   "file" : "Assets/farmer-72x18canvas-24x18sprite.png",
+   "width" : 24,
+   "height" : 18,
+   "num_across" : 3,
+   "num_down" : 1,
  },
 
  "rail" : {
