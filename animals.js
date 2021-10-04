@@ -106,28 +106,28 @@ class Chicken extends Animal {
 
     // Find the tile containing the chicken.  If the chicken is off the board,
     // in the depths, or has negative age, then this chicken dies.
-    // (Shouldn't we return at this point?)
     var tile = this.getTile();
     if (tile == null || tile.elevation == Elevation.depths || this.age <= 0) {
       animals.animals.splice(animals.animals.indexOf(this), 1);
-    }
-    // Check if the chicken has fallen into the depths.
-    if (tile != null && tile.elevation <= 1 &&
-      this.run <= 0 && !this.inTheDepths) {
-      this.age -= 0.01;
-      this.stopped = true;
-      this.inTheDepths = true;
-      audio.plop.play();
+      // Check if the chicken has fallen into the depths.
+      if (tile != null && tile.elevation == Elevation.depths &&
+        this.run <= 0 && !this.inTheDepths) {
+        this.age -= 0.01;
+        this.stopped = true;
+        this.inTheDepths = true;
+        audio.plop.play();
+      }
+      return;
     }
 
-    // If the chicken isn't running, then it can turn around.
-    if (tile != null && this.stopped && this.run <= 0) {
-      this.canTurn = true;
-    }
     // If the chicken is in the shallows then it can't turn or move fast.
-    if (tile != null && tile.elevation <= Elevation.shallow) {
+    if (tile.elevation == Elevation.shallow) {
       this.run--;
       this.canTurn = false;
+    }
+    // If the chicken isn't running, then it can turn around.
+    if (this.stopped && this.run <= 0) {
+      this.canTurn = true;
     }
 
 <<<<<<< HEAD
@@ -138,8 +138,12 @@ class Chicken extends Animal {
     // If the chicken is on a tile with alfalfa and the tile has been
     // around for 30 seconds and this chicken hasn't spawned yet
     // then consider dropping an egg.
+<<<<<<< HEAD
     if (tile != null && tile.item == Item.alfalfa && tile.age > 30 && this.spawn <= 0) {
 >>>>>>> 4bf3fdc6625ad7afcec606c7ddcdeec2a865143d
+=======
+    if (tile.item == Item.alfalfa && tile.age > 30 && this.spawn <= 0) {
+>>>>>>> b5ec3dfae320b421502ca1f3797683f5597348de
       tile.item = 0;
       if (Math.random() > 0.25) {
         // Spawn an egg.
