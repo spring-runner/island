@@ -112,14 +112,12 @@ class Chicken extends Animal {
     if (tile == null || tile.elevation == Elevation.depths || this.age <= 0) {
       animals.animals.splice(animals.animals.indexOf(this), 1);
     }
-
+    // Check if the chicken has fallen into the depths.
     if (tile != null && tile.elevation <= 1 &&
       this.run <= 0 && !this.inTheDepths) {
-      console.log("Plop!");
       this.age -= 0.01;
       this.stopped = true;
       this.inTheDepths = true;
-      console.log("Play plop.");
       audio.plop.play();
     }
 
@@ -127,8 +125,7 @@ class Chicken extends Animal {
     if (tile != null && this.stopped && this.run <= 0) {
       this.canTurn = true;
     }
-
-
+    // If the chicken is in the shallows then it can't turn or move fast.
     if (tile != null && tile.elevation <= Elevation.shallow) {
       this.run--;
       this.canTurn = false;
@@ -136,12 +133,12 @@ class Chicken extends Animal {
 
     if (tile != null && tile.item == Item.alfalfa && tile.age > 30 && this.spawn <= 0) {
       tile.item = 0;
-      if (tile.age > 45) {
+      if (Math.random() > 0.25) {
         tile.item = Item.egg;
         this.spawn = 100;
         game_eggs++;
+        tile.age = 0;
       }
-      tile.age = 0;
     }
     this.age -= 0.001;
     this.spawn--;
