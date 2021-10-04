@@ -7,8 +7,8 @@ var audio = {
   "music" : "Assets/Synthetic.mp3",
   "plop" : "Assets/plop-splash.wav",
   "dig" : "Assets/shovel.wav",
-  "packDirt" : "Assets/504347__joao-janz__sneaker-shoes-quick-forest-footstep-1-8.wav",
-  "hammer" : "Assets/96138__bmaczero__thud3.wav"
+  "packDirt" : "Assets/packDirt.wav",
+  "hammer" : "Assets/hammer.wav"
 
 };
 
