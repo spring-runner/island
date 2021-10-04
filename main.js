@@ -83,7 +83,7 @@ function makeWorld() {
 }
 
 function init() {
-  var animals = new Animals();
+  window.animals = new Animals();
 
   makeWorld();
 
