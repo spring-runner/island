@@ -1,3 +1,11 @@
+function attemptMove(r, c) {
+  if (r >= 0 && r < boardSize && c >= 0 && c < boardSize &&
+      board[r][c].elevation > Elevation.depths) {
+    player_row = r;
+    player_col = c;
+  }
+}
+
 function initPlayer() {
   player_row = Math.floor(boardSize / 2);
   player_col = Math.floor(boardSize / 2);
@@ -10,27 +18,19 @@ function initPlayer() {
     var square = board[player_row][player_col];
 
     if (key == "ArrowDown") {
-      if (board[player_row + 1][player_col].elevation != Elevation.depths) {
-        player_row = Math.min(player_row + 1, boardSize - 1);
-      }
+      attemptMove(player_row + 1, player_col);
       player_angle = 0;
 
     } else if (key == "ArrowUp") {
-      if (board[player_row - 1][player_col].elevation != Elevation.depths) {
-              player_row = Math.max(player_row - 1, 0);
-      }
+      attemptMove(player_row - 1, player_col);
       player_angle = 0;
 
     } else if (key == "ArrowLeft") {
-      if (board[player_row][player_col - 1].elevation != Elevation.depths) {
-              player_col = Math.max(player_col - 1, 0);
-      }
+      attemptMove(player_row, player_col - 1);
       player_angle = Math.PI / 2;
 
     } else if (key == "ArrowRight") {
-      if (board[player_row][player_col + 1].elevation != Elevation.depths) {
-        player_col = Math.min(player_col + 1, boardSize - 1);
-      }
+      attemptMove(player_row, player_col + 1);
       player_angle = Math.PI / 2;
 
     } else if (key == "d") {

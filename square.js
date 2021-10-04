@@ -50,8 +50,12 @@ function simulateSquares(dt) {
           }
         }
       } else if (square.item == Item.egg) {
-        if (square.age > 90) {
+        if (square.age > 45) {
           square.item = Item.none;
+          var c = new Chicken();
+          c.x = col * TILE_SIZE + TILE_SIZE / 2;
+          c.y = row * TILE_SIZE + TILE_SIZE / 2;
+          animals.animals.push(c);
         }
       }
 
