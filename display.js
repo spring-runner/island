@@ -99,6 +99,7 @@ function updatePlayer() {
   inventory_landmass_div.innerHTML = landmass;
 }
 
+
 function loadImages() {
   if (location.protocol != "http:" && location.protocol != "https:") {
     console.warn("Cannot load images via the " + location.protocol + " protocol. Aborted loadImages");
@@ -121,6 +122,7 @@ function loadImages() {
     }
   }
 }
+
 
 function preload() {
   loadImages();
