@@ -50,7 +50,7 @@ function simulateSquares(dt) {
           }
         }
       } else if (square.item == Item.egg) {
-        if (square.age > 90) {
+        if (square.age > 45) {
           square.item = Item.none;
         }
       }
