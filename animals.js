@@ -130,14 +130,23 @@ class Chicken extends Animal {
       this.canTurn = false;
     }
 
+<<<<<<< HEAD
     // If the chicken finds some alfalfa that has grown for at least a
     // few moments.
     if (tile != null && tile.item == Item.alfalfa && tile.age > 10 && this.spawn <= 0) {
+=======
+    // If the chicken is on a tile with alfalfa and the tile has been
+    // around for 30 seconds and this chicken hasn't spawned yet
+    // then consider dropping an egg.
+    if (tile != null && tile.item == Item.alfalfa && tile.age > 30 && this.spawn <= 0) {
+>>>>>>> 4bf3fdc6625ad7afcec606c7ddcdeec2a865143d
       tile.item = 0;
       if (Math.random() > 0.25) {
+        // Spawn an egg.
         tile.item = Item.egg;
         this.spawn = 100;
         game_eggs++;
+        // Reset the tile timer.
         tile.age = 0;
       }
     }
