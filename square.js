@@ -51,7 +51,7 @@ function simulateSquares(dt) {
         }
       } else if (square.item == Item.egg) {
         // Hatch.
-        if (square.age > 45) {
+        if (square.age > 10) {
           // Egg hatches
           square.item = Item.none;
           game_eggs--;
