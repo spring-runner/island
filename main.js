@@ -41,7 +41,7 @@ function makeWorld() {
     }
   }
 
-  // Generate the world.  Place some lava.
+  // Generate the world.  Place some lava at random locations near the center.
   for (var i = 0; i < 6; ++i) {
     var r = 0;
     var c = 0;
@@ -54,7 +54,7 @@ function makeWorld() {
     board[r][c].elevation = Elevation.lava;
   }
 
-  // Now grow outward from the lava.
+  // Now do several rounds expanding land outward from the lava.
   var smooth = Array(boardSize).fill(0).map(x => Array(boardSize).fill(0));
   for (var i = 0; i < 5; ++i) {
     for (var r = 1; r + 1 < boardSize; ++r) {
@@ -69,7 +69,6 @@ function makeWorld() {
             2 * Math.random()) / 4));
       }
     }
-
     for (var r = 1; r + 1 < boardSize; ++r) {
       for (var c = 1; c + 1 < boardSize; ++c) {
         board[r][c].elevation = smooth[r][c];
@@ -88,6 +87,7 @@ function makeWorld() {
 function init() {
   makeWorld();
 
+  // Initialize various systems...
   initAudio();
   initImlib();
   initPhysics();
