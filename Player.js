@@ -10,8 +10,8 @@ function initPlayer() {
   player_row = Math.floor(boardSize / 2);
   player_col = Math.floor(boardSize / 2);
   player_angle = 0;
-  player_dirt = 0;
-  player_wood = 0;
+  player_dirt = 1000;
+  player_wood = 1000;
   game_eggs = 0;
 
   document.onkeydown = function(e) {
