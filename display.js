@@ -90,7 +90,7 @@ function updateWorld() {
 function updatePlayer() {
   var ctx = gameBoard.getContext("2d");
 
-  drawCenteredSprite(ctx, "player", Math.floor((game_time * 10) % 8),
+  drawCenteredSprite(ctx, "player", Math.floor((game_time * 10) % 3),
     (player_col + 0.5) * TILE_SIZE, (player_row + 0.5) * TILE_SIZE,
     player_angle);
 
