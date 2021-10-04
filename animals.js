@@ -120,6 +120,7 @@ class Chicken extends Animal {
       if (tile.age > 45) {
         tile.item = Item.egg;
         this.spawn = 1000;
+        game_eggs++;
       }
       tile.age = 0;
     }
