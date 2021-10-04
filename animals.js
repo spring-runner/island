@@ -55,6 +55,7 @@ class Chicken extends Animal {
     this.age = Math.random() * 2 + 1;
     this.smartness = Math.random() / 200;
     this.inTheDepths = false;
+    this.spawn = 0;
   }
   update() {
     if (this.turn > 0 || this.run > 0 && this.canTurn) {
@@ -72,7 +73,7 @@ class Chicken extends Animal {
       this.x += Math.sin(this.dir) * -1;
       this.y += Math.cos(this.dir) * -1;
       let target = this.getTile();
-      if (target.elevation <= 1 && Math.random() > this.smartness) {
+      if (target == null || (target.elevation <= 1 && Math.random() > this.smartness) || target.item == Item.rail) {
         this.x += Math.sin(this.dir) * 1;
         this.y += Math.cos(this.dir) * 1;
       }
@@ -109,7 +110,16 @@ class Chicken extends Animal {
       this.run--;
       this.canTurn = false;
     }
+    if (tile != null && tile.item == Item.alfalfa && tile.age > 30 && this.spawn <= 0) {
+      tile.item = 0;
+      if (tile.age > 45) {
+        tile.item = Item.egg;
+        this.spawn = 1000;
+      }
+      tile.age = 0;
+    }
     this.age -= 0.001;
+    this.spawn--;
   }
   getImage() {
     return IMAGES.CHICKEN.getFrameAtIndex(0);

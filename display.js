@@ -11,8 +11,8 @@ const WORLD_IMAGE_PADDING = 1;
 const WORLD_IMAGE_TILE_SIZE = 16;
 
 const IMAGES = {};
-const PLAYER_HEIGHT = 10;
-const PLAYER_WIDTH = 18;
+const PLAYER_HEIGHT = 18;
+const PLAYER_WIDTH = 24;
 
 let playerIsLoaded;
 
@@ -34,14 +34,6 @@ function updateDisplay() {
 }
 
 function updateWorld() {
-/*  const elevationColor = [
-    "#000090",
-    "#0000a8",
-    "lightgreen",
-    "mediumseagreen",
-    "seagreen",
-    "gray",
-  ];*/
   const elevationColor = [
     "#0d4a89",
     "#256495",
@@ -96,9 +88,6 @@ function updateWorld() {
 }
 
 function updatePlayer() {
-  const player_height = 10;
-  const player_width = 18;
-
   var ctx = gameBoard.getContext("2d");
 
   drawCenteredSprite(ctx, "player", Math.floor((game_time * 10) % 8),
