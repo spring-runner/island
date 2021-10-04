@@ -106,6 +106,7 @@ class Chicken extends Animal {
 
     // Find the tile containing the chicken.  If the chicken is off the board,
     // in the depths, or has negative age, then this chicken dies.
+    // (Shouldn't we return at this point?)
     var tile = this.getTile();
     if (tile == null || tile.elevation == Elevation.depths || this.age <= 0) {
       animals.animals.splice(animals.animals.indexOf(this), 1);
@@ -120,20 +121,19 @@ class Chicken extends Animal {
       return;
     }
 
+    // If the chicken isn't running, then it can turn around.
+    if (tile != null && this.stopped && this.run <= 0) {
+      this.canTurn = true;
+    }
     // If the chicken is in the shallows then it can't turn or move fast.
-    if (tile.elevation == Elevation.shallow) {
+    if (tile != null && tile.elevation <= Elevation.shallow) {
       this.run--;
       this.canTurn = false;
     }
-    // If the chicken isn't running, then it can turn around.
-    if (this.stopped && this.run <= 0) {
-      this.canTurn = true;
-    }
 
-    // If the chicken is on a tile with alfalfa and the tile has been
-    // around for 30 seconds and this chicken hasn't spawned yet
-    // then consider dropping an egg.
-    if (tile.item == Item.alfalfa && tile.age > 30 && this.spawn <= 0) {
+    // If the chicken finds some alfalfa that has grown for at least a
+    // few moments.
+    if (tile != null && tile.item == Item.alfalfa && tile.age > 10 && this.spawn <= 0) {
       tile.item = 0;
       if (Math.random() > 0.25) {
         // Spawn an egg.
