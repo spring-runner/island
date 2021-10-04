@@ -37,9 +37,9 @@ function simulateSquares(dt) {
       }
 
       if (square.item == Item.alfalfa) {
-        if (square.age > 60) {
+        if (square.age > 180) {
+          // Alfalfa eventually dies off.
           square.item = Item.none;
-          // Alfalfa... eventually dies?
         }
       } else if (square.item == Item.tree) {
         if (square.age > 60) {
@@ -51,6 +51,7 @@ function simulateSquares(dt) {
         }
       } else if (square.item == Item.egg) {
         if (square.age > 45) {
+          // Egg hatches
           square.item = Item.none;
           game_eggs--;
           var c = new Chicken();

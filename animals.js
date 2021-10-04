@@ -71,7 +71,6 @@ class Chicken extends Animal {
   }
   update() {
     // dirv = rotational velocity?
-
     if (this.turn > 0 || this.run > 0 && this.canTurn) {
       if (this.turn > 0) {
         this.dirv += Math.random() * 0.05 - 0.0025;
@@ -131,7 +130,9 @@ class Chicken extends Animal {
       this.canTurn = false;
     }
 
-    if (tile != null && tile.item == Item.alfalfa && tile.age > 30 && this.spawn <= 0) {
+    // If the chicken finds some alfalfa that has grown for at least a
+    // few moments.
+    if (tile != null && tile.item == Item.alfalfa && tile.age > 10 && this.spawn <= 0) {
       tile.item = 0;
       if (Math.random() > 0.25) {
         tile.item = Item.egg;
