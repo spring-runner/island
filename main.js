@@ -86,6 +86,8 @@ function makeWorld() {
 }
 
 function init() {
+  var animals = new Animals();
+
   makeWorld();
 
   initAudio();

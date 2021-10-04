@@ -1,6 +1,21 @@
 class Animals {
   constructor() {
     this.animals = [];
+    var chickens = Math.random() * 5 + 7.5;
+    for (var ic = 0; ic < chickens; ic++) {
+      for (var i = 0; i < 16; i++) {
+        var x = Math.random() * BOARD_SIZE_PX;
+        var y = Math.random() * BOARD_SIZE_PX;
+        var tile = board[Math.floor(y / TILE_SIZE)][Math.floor(x / TILE_SIZE)];
+        if (tile.elevation >= 2) {
+          var c = new Chicken();
+          c.x = x;
+          c.y = y;
+          animals.animals.push(c);
+          break;
+        }
+      }
+    }
   }
   update() {
     Chicken.trySpawn();
@@ -114,7 +129,7 @@ class Chicken extends Animal {
       tile.item = 0;
       if (tile.age > 45) {
         tile.item = Item.egg;
-        this.spawn = 1000;
+        this.spawn = 100;
       }
       tile.age = 0;
     }
@@ -129,7 +144,7 @@ class Chicken extends Animal {
     return board[Math.floor(this.y / TILE_SIZE)][Math.floor(this.x / TILE_SIZE)] || null;
   }
   static trySpawn() {
-    if (Math.random() > 0.99 && animals.animals.length < 10) {
+    if (Math.random() > 0.9999 && animals.animals.length < 10) {
       for (var i = 0; i < 16; i++) {
         var x = Math.random() * BOARD_SIZE_PX;
         var y = Math.random() * BOARD_SIZE_PX;
@@ -145,5 +160,3 @@ class Chicken extends Animal {
     }
   }
 }
-
-var animals = new Animals();
