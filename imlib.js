@@ -8,57 +8,64 @@ const imageLibrary = {
     "gap" : 0,  // May omit if zero
  },
 
- "trees" : {
-   "file" : "Assets/trees.png",
-   "width" : 24,
-   "height" : 24,
-   "num_across" : 2,
-   "num_down" : 2,
- },
+  "trees" : {
+    "file" : "Assets/trees.png",
+    "width" : 24,
+    "height" : 24,
+    "num_across" : 2,
+    "num_down" : 2,
+  },
 
- "player" : {
-   "file" : "Assets/farmer-72x18canvas-24x18sprite.png",
-   "width" : 24,
-   "height" : 18,
-   "num_across" : 3,
-   "num_down" : 1,
- },
+  "player" : {
+    "file" : "Assets/farmer-72x18canvas-24x18sprite.png",
+    "width" : 24,
+    "height" : 18,
+    "num_across" : 3,
+    "num_down" : 1,
+  },
 
- "rail" : {
-   "file" : "Assets/railing.png",
-   "width" : 24,
-   "height" : 24,
-   "num_across" : 4,
-   "num_down" : 4,
- },
+  "rail" : {
+    "file" : "Assets/railing.png",
+    "width" : 24,
+    "height" : 24,
+    "num_across" : 4,
+    "num_down" : 4,
+  },
 
- "wave" : {
-   "file" : "Assets/waves.png",
-   "width" : 24,
-   "height" : 12,
-   "num_across" : 3,
-   "num_down" : 1,
- },
+  "wave" : {
+    "file" : "Assets/waves.png",
+    "width" : 24,
+    "height" : 12,
+    "num_across" : 3,
+    "num_down" : 1,
+  },
 
- "egg" : {
-   "file" : "Assets/egg.png",
-   "width" : 24,
-   "height" : 24,
- },
+  "egg" : {
+    "file" : "Assets/egg.png",
+    "width" : 24,
+    "height" : 24,
+  },
 
- "alf" : {
-   "file" : "Assets/Alfalfa.png",
-   "width" : 24,
-   "height" : 24,
-   "num_across" : 2,
-   "num_down" : 3,
- },
+  "alf" : {
+    "file" : "Assets/Alfalfa.png",
+    "width" : 24,
+    "height" : 24,
+    "num_across" : 2,
+    "num_down" : 3,
+  },
+
+  "chicken" : {
+    "file" : "Assets/chicken.png",
+    "width" : 24,
+    "height" : 24,
+    "num_across" : 1,
+    "num_down" : 1,
+  }
 };
 
 function initImlib() {
   for (var name in imageLibrary) {
     var data = imageLibrary[name];
-
     var img = new Image();
     img.src = data.file;
     imageLibrary[name].img = img;
