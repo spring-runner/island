@@ -61,6 +61,18 @@ function initPlayer() {
           square.elevation <= Elevation.plains) {
         player_dirt -= 1;
         square.elevation += 1;
+        if (elevAt(player_row, player_col + 1) == 0) {
+          board[player_row][player_col + 1].elevation = 1
+        }
+        if (elevAt(player_row, player_col - 1) == 0) {
+          board[player_row][player_col - 1].elevation = 1
+        }
+        if (elevAt(player_row - 1, player_col) == 0) {
+          board[player_row - 1][player_col].elevation = 1
+        }
+        if (elevAt(player_row + 1, player_col) == 0) {
+          board[player_row + 1][player_col].elevation = 1
+        }
       }
     } else if (key == "a") {
       // plant alfalfa
