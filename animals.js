@@ -70,6 +70,8 @@ class Chicken extends Animal {
     this.name = "chicken";
   }
   update() {
+    // dirv = rotational velocity?
+
     if (this.turn > 0 || this.run > 0 && this.canTurn) {
       if (this.turn > 0) {
         this.dirv += Math.random() * 0.05 - 0.0025;
