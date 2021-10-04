@@ -8,7 +8,8 @@ var audio = {
   "plop" : "Assets/plop-splash.wav",
   "dig" : "Assets/shovel.wav",
   "packDirt" : "Assets/packDirt.wav",
-  "hammer" : "Assets/hammer.wav"
+  "hammer" : "Assets/hammer.wav",
+  "tree" : "Assets/tree_cutting.wav"
 
 };
 
@@ -21,8 +22,10 @@ function initAudio() {
   // Replace the path to a file with an audio object.
   for (var name in audio) {
     audio[name] = new Audio(audio[name]);
-    if (name == "dig") {
+    if (name == "dig" || name == "hammer") {
       audio[name].volume = 0.5;
+    } else if (name == "plop") {
+      audio[name].volume = 0.8;
     }
   }
 }

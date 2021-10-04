@@ -48,6 +48,7 @@ function initPlayer() {
         // dig up a tree - get wood when halfway grown
         if (square.age > 30) {
           player_wood += 1;
+          audio.tree.play();
         }
         square.item = Item.none;
       } else if (square.elevation > Elevation.beach &&
