@@ -112,7 +112,7 @@ function initPlayer() {
           player_wood > 0) {
         square.item = Item.rail;
         player_wood -= 1;
-        aduio.hammer.play();
+        audio.hammer.play();
       }
     } else if (key == "e") {
       // TEMPORARY FOR DEVELOPMENT
