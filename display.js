@@ -11,8 +11,8 @@ const WORLD_IMAGE_PADDING = 1;
 const WORLD_IMAGE_TILE_SIZE = 16;
 
 const IMAGES = {};
-const PLAYER_HEIGHT = 10;
-const PLAYER_WIDTH = 18;
+const PLAYER_HEIGHT = 18;
+const PLAYER_WIDTH = 24;
 
 let playerIsLoaded;
 
@@ -96,8 +96,8 @@ function updateWorld() {
 }
 
 function updatePlayer() {
-  const player_height = 10;
-  const player_width = 18;
+  //const player_height = 18;
+  //const player_width = 24;
 
   var ctx = gameBoard.getContext("2d");
 
