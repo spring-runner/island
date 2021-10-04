@@ -54,7 +54,7 @@ function makeWorld() {
 
   // Now do several rounds expanding land outward from the lava.
   var smooth = Array(boardSize).fill(0).map(x => Array(boardSize).fill(0));
-  for (var i = 0; i < 15; ++i) {  // TOOD:  back to 5
+  for (var i = 0; i < 10; ++i) {
     for (var r = 1; r + 1 < boardSize; ++r) {
       for (var c = 1; c + 1 < boardSize; ++c) {
         smooth[r][c] = Math.max(
