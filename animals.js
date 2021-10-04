@@ -110,7 +110,7 @@ class Chicken extends Animal {
     if (tile == null || tile.elevation == Elevation.depths || this.age <= 0) {
       animals.animals.splice(animals.animals.indexOf(this), 1);
     }
-
+    // Check if the chicken has fallen into the depths.
     if (tile != null && tile.elevation <= 1 &&
       this.run <= 0 && !this.inTheDepths) {
       this.age -= 0.01;
@@ -123,8 +123,7 @@ class Chicken extends Animal {
     if (tile != null && this.stopped && this.run <= 0) {
       this.canTurn = true;
     }
-
-
+    // If the chicken is in the shallows then it can't turn or move fast.
     if (tile != null && tile.elevation <= Elevation.shallow) {
       this.run--;
       this.canTurn = false;
