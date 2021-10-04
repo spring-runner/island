@@ -20,8 +20,6 @@ function animate() {
   // Update the display
   updateDisplay();
 
-  // movePlayer() - commented out for now
-
   // Update animals
   animals.update();
 
@@ -93,11 +91,11 @@ function init() {
   initPhysics();
   initPlayer();
 
-  // Display board
+  // Display board for the first time
   updateDisplay();
 
   // Begin the animation loop
   start_time = Date.now() / 1000;
-  game_time = start_time;
+  game_time = 0;
   window.requestAnimationFrame(animate);
 }
