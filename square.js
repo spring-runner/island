@@ -52,6 +52,7 @@ function simulateSquares(dt) {
       } else if (square.item == Item.egg) {
         if (square.age > 45) {
           square.item = Item.none;
+          game_eggs--;
           var c = new Chicken();
           c.x = col * TILE_SIZE + TILE_SIZE / 2;
           c.y = row * TILE_SIZE + TILE_SIZE / 2;
