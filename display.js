@@ -34,14 +34,6 @@ function updateDisplay() {
 }
 
 function updateWorld() {
-/*  const elevationColor = [
-    "#000090",
-    "#0000a8",
-    "lightgreen",
-    "mediumseagreen",
-    "seagreen",
-    "gray",
-  ];*/
   const elevationColor = [
     "#0d4a89",
     "#256495",
@@ -96,19 +88,19 @@ function updateWorld() {
 }
 
 function updatePlayer() {
-  //const player_height = 18;
-  //const player_width = 24;
-
   var ctx = gameBoard.getContext("2d");
 
-  drawCenteredSprite(ctx, "player", Math.floor((game_time * 10) % 8),
+  drawCenteredSprite(ctx, "player", Math.floor((game_time * 10) % 3),
     (player_col + 0.5) * TILE_SIZE, (player_row + 0.5) * TILE_SIZE,
     player_angle);
 
   inventory_dirt_div.innerHTML = player_dirt;
   inventory_wood_div.innerHTML = player_wood;
   inventory_landmass_div.innerHTML = landmass;
+  eggs_div.innerHTML = game_eggs;
+  score_div.innerHTML = animals.animals.length;
 }
+
 
 function loadImages() {
   if (location.protocol != "http:" && location.protocol != "https:") {
@@ -132,6 +124,7 @@ function loadImages() {
     }
   }
 }
+
 
 function preload() {
   loadImages();

@@ -8,16 +8,15 @@
     <link rel="shortcut icon" href="#">
   </head>
 
-  <body onload="preload()" style="position:relative;">
+  <body onload="init()" style="position:relative;">
 
     <div id="splash" onclick="this.style.display = 'none';">
       <h1><b>Eroding Chickens</b></h1>
       <p>You are a common chicken farmer in an uncommon place:  on an island
       eroding away into the sea.</p>
 
-      <p>Build dirt walls to stave off the waves
-        while raising alfalfa to feed your chickens.  Grow a forest
-      to build up the land.</p>
+      <p>Build dirt walls and grow forest to stave off the waves,
+        while raising alfalfa to feed your chickens.</p>
 
       <p>Beware!  Chickens aren't too bright and the sea is cold.  You might
       consider railings...</p>
@@ -38,7 +37,7 @@
       <div class="inventoryValue" id="inventory_landmass_div">0</div>
       <div class="inventoryKey">eggs</div>
       <div class="inventoryValue" id="eggs_div">0</div>
-      <div class="inventoryKey">Score:</div>
+      <div class="inventoryKey">Chicken Score:</div>
       <div class="inventoryValue" id="score_div">0</div>
     </div>
     <div id="inventory_div">
@@ -62,6 +61,7 @@
     <script src="animals.js" charset="utf-8"></script>
     <script src="loader.js" charset="utf-8"></script>
     <script type="text/javascript" src="audio.js"></script>
+    <script type="text/javascript" src="check.js"></script>
     <script type="text/javascript" src="imlib.js"></script>
     <script type="text/javascript" src="physics.js"></script>
     <script type="text/javascript" src="square.js"></script>

@@ -27,11 +27,15 @@ class Animals {
     var ctx = document.getElementById("gameBoard").getContext("2d");
     for (var i = 0; i < this.animals.length; i++) {
       var a = this.animals[i];
+      drawCenteredSprite(ctx, a.name, 0, a.x, a.y, a.dir);
+
+      /*
       ctx.translate(a.x, a.y);
       ctx.rotate(-a.dir);
       ctx.drawImage(a.getImage(), -a.width / 4, -a.height / 4);
       ctx.rotate(a.dir);
       ctx.translate(-a.x, -a.y);
+      */
     }
   }
 }
@@ -71,6 +75,7 @@ class Chicken extends Animal {
     this.smartness = Math.random() / 200;
     this.inTheDepths = false;
     this.spawn = 0;
+    this.name = "chicken";
   }
   update() {
     if (this.turn > 0 || this.run > 0 && this.canTurn) {
@@ -130,6 +135,7 @@ class Chicken extends Animal {
       if (tile.age > 45) {
         tile.item = Item.egg;
         this.spawn = 100;
+        game_eggs++;
       }
       tile.age = 0;
     }

@@ -1,36 +1,37 @@
+function attemptMove(r, c) {
+  if (r >= 0 && r < boardSize && c >= 0 && c < boardSize &&
+      board[r][c].elevation > Elevation.depths) {
+    player_row = r;
+    player_col = c;
+  }
+}
+
 function initPlayer() {
   player_row = Math.floor(boardSize / 2);
   player_col = Math.floor(boardSize / 2);
   player_angle = 0;
   player_dirt = 0;
   player_wood = 0;
+  game_eggs = 0;
 
   document.onkeydown = function(e) {
     var key = event.key;
     var square = board[player_row][player_col];
 
     if (key == "ArrowDown") {
-      if (board[player_row + 1][player_col].elevation != Elevation.depths) {
-        player_row = Math.min(player_row + 1, boardSize - 1);
-      }
+      attemptMove(player_row + 1, player_col);
       player_angle = 0;
 
     } else if (key == "ArrowUp") {
-      if (board[player_row - 1][player_col].elevation != Elevation.depths) {
-              player_row = Math.max(player_row - 1, 0);
-      }
+      attemptMove(player_row - 1, player_col);
       player_angle = 0;
 
     } else if (key == "ArrowLeft") {
-      if (board[player_row][player_col - 1].elevation != Elevation.depths) {
-              player_col = Math.max(player_col - 1, 0);
-      }
+      attemptMove(player_row, player_col - 1);
       player_angle = Math.PI / 2;
 
     } else if (key == "ArrowRight") {
-      if (board[player_row][player_col + 1].elevation != Elevation.depths) {
-        player_col = Math.min(player_col + 1, boardSize - 1);
-      }
+      attemptMove(player_row, player_col + 1);
       player_angle = Math.PI / 2;
 
     } else if (key == "d") {
@@ -39,6 +40,7 @@ function initPlayer() {
         // dig up a wall
         player_dirt += 1;
         square.item = Item.none;
+        audio.dig.play();
       } if (square.item == Item.rail || square.item == Item.alfalfa) {
         // dig up a railing or alfalfa-- get nothing
         square.item = Item.none;
@@ -53,6 +55,7 @@ function initPlayer() {
         // dig up the ground
         player_dirt += 1;
         square.elevation -= 1;
+        audio.dig.play();
       }
     } else if (key == "f") {
       // fill the ground with some dirt
@@ -61,6 +64,19 @@ function initPlayer() {
           square.elevation <= Elevation.plains) {
         player_dirt -= 1;
         square.elevation += 1;
+        audio.packDirt.play();
+        if (elevAt(player_row, player_col + 1) == 0) {
+          board[player_row][player_col + 1].elevation = 1
+        }
+        if (elevAt(player_row, player_col - 1) == 0) {
+          board[player_row][player_col - 1].elevation = 1
+        }
+        if (elevAt(player_row - 1, player_col) == 0) {
+          board[player_row - 1][player_col].elevation = 1
+        }
+        if (elevAt(player_row + 1, player_col) == 0) {
+          board[player_row + 1][player_col].elevation = 1
+        }
       }
     } else if (key == "a") {
       // plant alfalfa
@@ -78,6 +94,7 @@ function initPlayer() {
           square.elevation < Elevation.lava) {
         square.item = Item.wall;
         player_dirt -= 1;
+        audio.packDirt.play();
       }
     } else if (key == "t") {
       // build a tree
@@ -95,6 +112,7 @@ function initPlayer() {
           player_wood > 0) {
         square.item = Item.rail;
         player_wood -= 1;
+        aduio.hammer.play();
       }
     } else if (key == "e") {
       // TEMPORARY FOR DEVELOPMENT
