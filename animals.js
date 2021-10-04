@@ -28,14 +28,6 @@ class Animals {
     for (var i = 0; i < this.animals.length; i++) {
       var a = this.animals[i];
       drawCenteredSprite(ctx, a.name, 0, a.x, a.y, a.dir);
-
-      /*
-      ctx.translate(a.x, a.y);
-      ctx.rotate(-a.dir);
-      ctx.drawImage(a.getImage(), -a.width / 4, -a.height / 4);
-      ctx.rotate(a.dir);
-      ctx.translate(-a.x, -a.y);
-      */
     }
   }
 }
@@ -110,10 +102,15 @@ class Chicken extends Animal {
       animals.animals.splice(animals.animals.indexOf(this), 1);
       return;
     }
+
+    // Find the tile containing the chicken.  If the chicken is off the board,
+    // in the depths, or has negative age, then this chicken dies.
+    // (Shouldn't we return at this point?)
     var tile = this.getTile();
     if (tile == null || tile.elevation == Elevation.depths || this.age <= 0) {
       animals.animals.splice(animals.animals.indexOf(this), 1);
     }
+
     if (tile != null && tile.elevation <= 1 &&
       this.run <= 0 && !this.inTheDepths) {
       console.log("Plop!");
@@ -123,13 +120,18 @@ class Chicken extends Animal {
       console.log("Play plop.");
       audio.plop.play();
     }
+
+    // If the chicken isn't running, then it can turn around.
     if (tile != null && this.stopped && this.run <= 0) {
       this.canTurn = true;
     }
-    if (tile != null && tile.elevation <= 1) {
+
+
+    if (tile != null && tile.elevation <= Elevation.shallow) {
       this.run--;
       this.canTurn = false;
     }
+
     if (tile != null && tile.item == Item.alfalfa && tile.age > 30 && this.spawn <= 0) {
       tile.item = 0;
       if (tile.age > 45) {
@@ -146,16 +148,19 @@ class Chicken extends Animal {
     return IMAGES.CHICKEN.getFrameAtIndex(0);
   }
   getTile() {
+    // Return the tile containing this animal or NULL if the animal is off board.
     if (board[Math.floor(this.y / TILE_SIZE)] == null) return null;
     return board[Math.floor(this.y / TILE_SIZE)][Math.floor(this.x / TILE_SIZE)] || null;
   }
   static trySpawn() {
-    if (Math.random() > 0.9999 && animals.animals.length < 10) {
+    if (Math.random() > 0.9995 && animals.animals.length < 10) {
+      // Make a few attempts to find a valid location for a chicken.  If
+      // we find a spot above water, place a chicken.
       for (var i = 0; i < 16; i++) {
         var x = Math.random() * BOARD_SIZE_PX;
         var y = Math.random() * BOARD_SIZE_PX;
         var tile = board[Math.floor(y / TILE_SIZE)][Math.floor(x / TILE_SIZE)];
-        if (tile.elevation >= 2) {
+        if (tile.elevation >= Elevation.beach) {
           var c = new Chicken();
           c.x = x;
           c.y = y;
