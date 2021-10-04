@@ -82,6 +82,8 @@ function makeWorld() {
   }
 }
 
+var animals;
+
 function init() {
 
   makeWorld();
@@ -92,7 +94,7 @@ function init() {
   initPhysics();
   initPlayer();
 
-  window.animals = new Animals();
+  animals = new Animals();
 
   // Display board for the first time
   updateDisplay();

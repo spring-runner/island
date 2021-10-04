@@ -11,7 +11,7 @@ class Animals {
           var c = new Chicken();
           c.x = x;
           c.y = y;
-          animals.animals.push(c);
+          this.animals.push(c);
           break;
         }
       }
