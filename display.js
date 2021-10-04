@@ -34,14 +34,6 @@ function updateDisplay() {
 }
 
 function updateWorld() {
-/*  const elevationColor = [
-    "#000090",
-    "#0000a8",
-    "lightgreen",
-    "mediumseagreen",
-    "seagreen",
-    "gray",
-  ];*/
   const elevationColor = [
     "#0d4a89",
     "#256495",
@@ -96,9 +88,6 @@ function updateWorld() {
 }
 
 function updatePlayer() {
-  //const player_height = 18;
-  //const player_width = 24;
-
   var ctx = gameBoard.getContext("2d");
 
   drawCenteredSprite(ctx, "player", Math.floor((game_time * 10) % 8),
