@@ -108,16 +108,6 @@ function initPlayer() {
         square.item = Item.rail;
         player_wood -= 1;
       }
-    } else if (key == "e") {
-      // TEMPORARY FOR DEVELOPMENT
-      // build an egg
-      console.log("EGG!!");
-      if (square.item == Item.none &&
-          square.elevation >= Elevation.beach &&
-          square.elevation <= Elevation.lava) {
-        square.item = Item.egg;
-        square.age = 0;
-      }
     }
   }
 }
