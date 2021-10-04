@@ -12,6 +12,7 @@ function initPlayer() {
   player_angle = 0;
   player_dirt = 0;
   player_wood = 0;
+  game_eggs = 0;
 
   document.onkeydown = function(e) {
     var key = event.key;
@@ -39,6 +40,7 @@ function initPlayer() {
         // dig up a wall
         player_dirt += 1;
         square.item = Item.none;
+        audio.dig.play();
       } if (square.item == Item.rail || square.item == Item.alfalfa) {
         // dig up a railing or alfalfa-- get nothing
         square.item = Item.none;
@@ -53,6 +55,7 @@ function initPlayer() {
         // dig up the ground
         player_dirt += 1;
         square.elevation -= 1;
+        audio.dig.play();
       }
     } else if (key == "f") {
       // fill the ground with some dirt
@@ -61,6 +64,7 @@ function initPlayer() {
           square.elevation <= Elevation.plains) {
         player_dirt -= 1;
         square.elevation += 1;
+        audio.packDirt.play();
         if (elevAt(player_row, player_col + 1) == 0) {
           board[player_row][player_col + 1].elevation = 1
         }
@@ -90,6 +94,7 @@ function initPlayer() {
           square.elevation < Elevation.lava) {
         square.item = Item.wall;
         player_dirt -= 1;
+        audio.packDirt.play();
       }
     } else if (key == "t") {
       // build a tree
@@ -107,16 +112,7 @@ function initPlayer() {
           player_wood > 0) {
         square.item = Item.rail;
         player_wood -= 1;
-      }
-    } else if (key == "e") {
-      // TEMPORARY FOR DEVELOPMENT
-      // build an egg
-      console.log("EGG!!");
-      if (square.item == Item.none &&
-          square.elevation >= Elevation.beach &&
-          square.elevation <= Elevation.lava) {
-        square.item = Item.egg;
-        square.age = 0;
+        audio.hammer.play();
       }
     }
   }
